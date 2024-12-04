@@ -16,13 +16,16 @@ public:
     string getFirstName();
     string getSubject();
     bool getToiletState();
+    bool getQueuedState();
     void setToiletState(bool state);
+    void setQueuedState(bool state);
 private:
     int id;
     string lastName;
     string firstName;
     string subject;
     bool isOnToilet;
+    bool isQueued;
 };
 
 

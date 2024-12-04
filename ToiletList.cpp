@@ -39,7 +39,7 @@ json ToiletList::getStudentStatus(const int id) {
         {"firstName", student.getFirstName()},
         {"secondName", student.getLastName()},
         {"subject", student.getSubject()},
-        {"isQueued", "not yet implemented"}
+        {"isQueued", student.getQueuedState()}
     };
 
     return students[id].getToiletState();
@@ -47,21 +47,30 @@ json ToiletList::getStudentStatus(const int id) {
 
 void ToiletList::queueStudent(const int id) {
     Student student = students[id];
+
+    // send the student to the toilet, if it's available
     if (checkToiletAvailability(student.getSubject())) {
         updateStudentToiletStatus(id, true);
     } else {
+        // otherwise queue the student in his subjects queue
         toiletQueueMap[student.getSubject()].push(student);
+        student.setQueuedState(true);
     }
 }
 
 void ToiletList::returnStudent(const int id) {
-    string subject = students[id].getSubject();
+    const string subject = students[id].getSubject();
     updateStudentToiletStatus(id, false);
 
     if (!toiletQueueMap[subject].empty()) {
-        // gets the next student from the subject's queue where a student just came back, send him to the toilet and remove him from the queue
+
+        // get the next student in line
         Student nextStudent = toiletQueueMap[subject].front();
+        // send the student to the toilet
         updateStudentToiletStatus(nextStudent.getId(), true);
+        // remove the student from the queue
         toiletQueueMap[subject].pop();
+        // remove the student from the queue
+        nextStudent.setQueuedState(false);
     }
 }

@@ -38,6 +38,14 @@ bool Student::getToiletState() {
     return this->isOnToilet;
 }
 
+bool Student::getQueuedState() {
+    return this->isQueued;
+}
+
 void Student::setToiletState(bool state) {
     this->isOnToilet = state;
+}
+
+void Student::setQueuedState(bool state) {
+    this->isQueued = state;
 }
