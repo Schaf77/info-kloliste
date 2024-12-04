@@ -5,7 +5,7 @@
 #ifndef FILELOADER_H
 #define FILELOADER_H
 #include <string>
-#include <vector>>
+#include <vector>
 
 #include "Student.h"
 
@@ -14,7 +14,7 @@ using namespace std;
 class FileLoader {
 public:
     FileLoader();
-    void loadFile(const string& path);
+    map<string, vector<string>> loadFile(const string& path);
     vector<Student> loadExample();
 private:
     int nextFreeId;

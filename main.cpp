@@ -9,6 +9,7 @@ using namespace std;
 
 int main() {
     FileLoader loader;
+    // loader.loadFile("C:\\Users\\Oskar\\CLionProjects\\info-kloliste\\test.txt");
     list<string> testSubjects = {"Maths", "English", "German"};
 
     ToiletList toiletList(loader.loadExample(), testSubjects);
