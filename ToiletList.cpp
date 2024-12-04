@@ -7,7 +7,9 @@
 #include <list>
 
 #include "ToiletList.h"
+#include "json.hpp"
 
+using json = nlohmann::json;
 
 ToiletList::ToiletList(vector<Student> students, const list<string>& subjects) {
     this->students = std::move(students);
@@ -30,7 +32,16 @@ void ToiletList::updateStudentToiletStatus(const int id, const bool isOnToilet) 
     students[id].setToiletState(isOnToilet);
 }
 
-bool ToiletList::getStudentStatus(const int id) {
+json ToiletList::getStudentStatus(const int id) {
+    Student student = students[id];
+
+    json output = {
+        {"firstName", student.getFirstName()},
+        {"secondName", student.getLastName()},
+        {"subject", student.getSubject()},
+        {"isQueued", "not yet implemented"}
+    };
+
     return students[id].getToiletState();
 }
 

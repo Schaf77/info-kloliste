@@ -18,7 +18,7 @@ class ToiletList {
 public:
     ToiletList(vector<Student> students, const list<string>& subjects);
     bool checkToiletAvailability(const string& subject);
-    bool getStudentStatus(int id);
+    json getStudentStatus(int id);
     void queueStudent(int id);
     void returnStudent(int id);
     void updateStudentToiletStatus(int id, bool isOnToilet);
