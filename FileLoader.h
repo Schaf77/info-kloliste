@@ -14,8 +14,9 @@ using namespace std;
 class FileLoader {
 public:
     FileLoader();
-    map<string, vector<string>> loadFile(const string& path);
+    vector<Student> loadFile(const string& path);
     vector<Student> loadExample();
+    vector<string> getSubjects(const vector<Student>& students);
 private:
     int nextFreeId;
 };

@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <vector>
-#include <map>
+#include <algorithm>
 #include <iostream>
 #include<regex>
 
@@ -19,10 +19,11 @@ FileLoader::FileLoader() {
     nextFreeId = 0;
 }
 
-map<string, vector<string>> FileLoader::loadFile(const string& path) {
+vector<Student> FileLoader::loadFile(const string& path) {
     // result map, where the key is the subject  and the element is a vector with all the students
-    map<string, vector<string>> data;
+    vector<Student> students;
     string line, subject, name;
+    int nextFreeId = 0;
 
     // attempt to open file, throw exception when failed
     ifstream file(path);
@@ -36,14 +37,15 @@ map<string, vector<string>> FileLoader::loadFile(const string& path) {
         // Split the line using stringstream and store the student
         stringstream ss(line);
         if (getline(ss, subject, ',') && getline(ss, name)) {
-            // Save the subject and name as a pair in the vector
-            data[subject].push_back(name);
+            // Save the student in the students vector
+            Student student(&nextFreeId, name, subject);
+            students.push_back(student);
         } else {
             cerr << "Error parsing line: " << line << endl;
         }
     }
 
-    return data;
+    return students;
 }
 
 vector<Student> FileLoader::loadExample() {
@@ -76,5 +78,18 @@ vector<Student> FileLoader::loadExample() {
     testStudents.push_back(testStudent11);
 
     return testStudents;
+}
+
+vector<string> FileLoader::getSubjects(const vector<Student> &students) {
+    vector<string> subjects;
+
+    for (Student student : students) {
+        string subject = student.getSubject();
+        if (find(subjects.begin(), subjects.end(), subject) == subjects.end()) {
+            subjects.push_back(subject);
+        }
+    }
+
+    return subjects;
 }
 

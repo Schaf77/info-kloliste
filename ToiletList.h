@@ -19,7 +19,7 @@ using namespace std;
 
 class ToiletList {
 public:
-    ToiletList(vector<Student> students, const list<string>& subjects);
+    ToiletList(vector<Student> students, const vector<string>& subjects);
     bool checkToiletAvailability(const string& subject);
     json getStudentStatus(int id);
     void queueStudent(int id);

@@ -11,7 +11,7 @@
 
 using json = nlohmann::json;
 
-ToiletList::ToiletList(vector<Student> students, const list<string>& subjects) {
+ToiletList::ToiletList(vector<Student> students, const vector<string>& subjects) {
     this->students = std::move(students);
 
     for (const string& subject : subjects) {
