@@ -45,12 +45,13 @@ json ToiletList::getStudentStatus(const int id) {
 }
 
 json ToiletList::getToiletStatus(string subject) {
-
     json output = {
         {"subject", subject},
         {"availability", checkToiletAvailability(subject)},
         {"queueLength", toiletQueueMap.at(subject).size()}
     };
+
+    return output;
 }
 
 
