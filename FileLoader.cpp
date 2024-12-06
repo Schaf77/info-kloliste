@@ -20,12 +20,9 @@ FileLoader::FileLoader() {
 }
 
 map<string, vector<string>> FileLoader::loadFile(const string& path) {
-    // result map, where the key is the subject abbreviation and the element is a vector with all the students
+    // result map, where the key is the subject  and the element is a vector with all the students
     map<string, vector<string>> data;
-    string line;
-
-    // Define the regular expression pattern to match the subject line
-    regex pattern("^[A-Z]{2}.*");
+    string line, subject, name;
 
     // attempt to open file, throw exception when failed
     ifstream file(path);
@@ -33,8 +30,17 @@ map<string, vector<string>> FileLoader::loadFile(const string& path) {
 
     // read every line from file
     while (std::getline(file, line)) {
-        // TODO analyse file
-        cout << line << endl;
+        // Ignore first Line ("Kurs,Name")
+        if (line == "Kurs,Name") continue;
+
+        // Split the line using stringstream and store the student
+        stringstream ss(line);
+        if (getline(ss, subject, ',') && getline(ss, name)) {
+            // Save the subject and name as a pair in the vector
+            data[subject].push_back(name);
+        } else {
+            cerr << "Error parsing line: " << line << endl;
+        }
     }
 
     return data;
