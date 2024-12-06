@@ -36,8 +36,7 @@ json ToiletList::getStudentStatus(const int id) {
     Student student = students[id];
 
     json output = {
-        {"firstName", student.getFirstName()},
-        {"secondName", student.getLastName()},
+        {"name", student.getName()},
         {"subject", student.getSubject()},
         {"isQueued", student.getQueuedState()}
     };

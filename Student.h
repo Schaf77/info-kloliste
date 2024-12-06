@@ -10,10 +10,9 @@ using namespace std;
 
 class Student {
 public:
-    Student(int *pNextFreeId, const string &lastName, const string &firstName, const string &subject);
+    Student(int *pNextFreeId, const string &name, const string &subject);
     int getId();
-    string getLastName();
-    string getFirstName();
+    string getName();
     string getSubject();
     bool getToiletState();
     bool getQueuedState();
@@ -21,8 +20,7 @@ public:
     void setQueuedState(bool state);
 private:
     int id;
-    string lastName;
-    string firstName;
+    string name;
     string subject;
     bool isOnToilet;
     bool isQueued;

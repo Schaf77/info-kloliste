@@ -4,17 +4,17 @@
 
 #include "Student.h"
 
-Student::Student(int *pNextFreeId, const string &lastName, const string &firstName, const string &subject) {
+Student::Student(int *pNextFreeId, const string &name, const string &subject) {
     // assign next available id and increment the nextFreeId variable
     this->id = *(pNextFreeId);
     (*pNextFreeId)++;
 
     // set toilet status
     this->isOnToilet = false;
+    this->isQueued = false;
 
     // set example values
-    this->lastName = lastName;
-    this->firstName = firstName;
+    this->name = name;
     this->subject = subject;
 }
 
@@ -26,14 +26,9 @@ string Student::getSubject() {
     return this->subject;
 }
 
-string Student::getFirstName() {
-    return this->firstName;
+string Student::getName() {
+    return this->name;
 }
-
-string Student::getLastName() {
-    return this->lastName;
-}
-
 bool Student::getToiletState() {
     return this->isOnToilet;
 }

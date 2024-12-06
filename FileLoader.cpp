@@ -36,23 +36,25 @@ map<string, vector<string>> FileLoader::loadFile(const string& path) {
         // TODO analyse file
         cout << line << endl;
     }
+
+    return data;
 }
 
 vector<Student> FileLoader::loadExample() {
     nextFreeId = 0;
     vector<Student> testStudents;
-    Student testStudent01(&nextFreeId, "John", "Doe", "Maths");
-    Student testStudent02(&nextFreeId, "Jane", "Doe", "English");
-    Student testStudent03(&nextFreeId, "Peter", "Doe", "German");
-    Student testStudent04(&nextFreeId, "Jens", "Doe", "Maths");
-    Student testStudent05(&nextFreeId, "Klaus", "Doe", "English");
-    Student testStudent06(&nextFreeId, "Klaus", "Doe", "German");
-    Student testStudent07(&nextFreeId, "John", "Doe", "Maths");
-    Student testStudent08(&nextFreeId, "Jane", "Doe", "English");
-    Student testStudent09(&nextFreeId, "Peter", "Doe", "German");
-    Student testStudent10(&nextFreeId, "Jens", "Doe", "Maths");
-    Student testStudent11(&nextFreeId, "Klaus", "Doe", "English");
-    Student testStudent12(&nextFreeId, "Klaus", "Doe", "German");
+    Student testStudent01(&nextFreeId, "John", "Maths");
+    Student testStudent02(&nextFreeId, "Jane", "English");
+    Student testStudent03(&nextFreeId, "Peter", "German");
+    Student testStudent04(&nextFreeId, "Jens", "Maths");
+    Student testStudent05(&nextFreeId, "Klaus", "English");
+    Student testStudent06(&nextFreeId, "Klaus", "German");
+    Student testStudent07(&nextFreeId, "John", "Maths");
+    Student testStudent08(&nextFreeId, "Jane", "English");
+    Student testStudent09(&nextFreeId, "Peter", "German");
+    Student testStudent10(&nextFreeId, "Jens", "Maths");
+    Student testStudent11(&nextFreeId, "Klaus", "English");
+    Student testStudent12(&nextFreeId, "Klaus", "German");
 
 
     testStudents.push_back(testStudent01);
