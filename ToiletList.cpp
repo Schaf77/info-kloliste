@@ -70,8 +70,8 @@ void ToiletList::queueStudent(const int id) {
             toiletQueueMap.at(student.getSubject()).push(student);
             student.setQueuedState(true);
         }
-    } catch (const std::exception& e) {
-        cerr << e.what() << endl;
+    } catch (const out_of_range& oor) {
+        cerr << "Out of Range error: " << oor.what() << endl;
     }
 }
 
