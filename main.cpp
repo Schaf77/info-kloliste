@@ -9,23 +9,24 @@ using namespace std;
 
 int main() {
     FileLoader loader;
-    // loader.loadFile("C:\\Users\\Oskar\\CLionProjects\\info-kloliste\\test.txt");
-    list<string> testSubjects = {"Maths", "English", "German"};
+    //TODO relative Path
+    vector<Student> students = loader.loadFile("C:\\Users\\Oskar\\CLionProjects\\info-kloliste\\kloliste-beispiel.csv");
+    vector<string> subjects = loader.getSubjects(students);
 
-    ToiletList toiletList(loader.loadExample(), testSubjects);
-    cout << "English: " << toiletList.checkToiletAvailability("English") << endl;
-    cout << "Maths: " << toiletList.checkToiletAvailability("Maths") << endl;
-    cout << "German: " << toiletList.checkToiletAvailability("German") << endl;
+    ToiletList toiletList(students, subjects);
+    cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
+    cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
+    cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
     toiletList.queueStudent(0);
     cout << "Changed" << endl;
-    cout << "English: " << toiletList.checkToiletAvailability("English") << endl;
-    cout << "Maths: " << toiletList.checkToiletAvailability("Maths") << endl;
-    cout << "German: " << toiletList.checkToiletAvailability("German") << endl;
-    toiletList.queueStudent(3);
+    cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
+    cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
+    cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
+    toiletList.queueStudent(1);
     cout << "Changed" << endl;
-    cout << "English: " << toiletList.checkToiletAvailability("English") << endl;
-    cout << "Maths: " << toiletList.checkToiletAvailability("Maths") << endl;
-    cout << "German: " << toiletList.checkToiletAvailability("German") << endl;
+    cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
+    cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
+    cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
     toiletList.returnStudent(0);
     return 0;
 }
