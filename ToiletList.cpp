@@ -44,6 +44,16 @@ json ToiletList::getStudentStatus(const int id) {
     return students[id].getToiletState();
 }
 
+json ToiletList::getToiletStatus(string subject) {
+
+    json output = {
+        {"subject", subject},
+        {"availability", checkToiletAvailability(subject)},
+        {"queueLength", toiletQueueMap[subject].size()}
+    };
+}
+
+
 void ToiletList::queueStudent(const int id) {
     Student student = students[id];
 
