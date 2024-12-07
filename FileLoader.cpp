@@ -51,18 +51,18 @@ vector<Student> FileLoader::loadFile(const string& path) {
 vector<Student> FileLoader::loadExample() {
     nextFreeId = 0;
     vector<Student> testStudents;
-    Student testStudent01(&nextFreeId, "John", "Maths");
-    Student testStudent02(&nextFreeId, "Jane", "English");
-    Student testStudent03(&nextFreeId, "Peter", "German");
-    Student testStudent04(&nextFreeId, "Jens", "Maths");
-    Student testStudent05(&nextFreeId, "Klaus", "English");
-    Student testStudent06(&nextFreeId, "Klaus", "German");
-    Student testStudent07(&nextFreeId, "John", "Maths");
-    Student testStudent08(&nextFreeId, "Jane", "English");
-    Student testStudent09(&nextFreeId, "Peter", "German");
-    Student testStudent10(&nextFreeId, "Jens", "Maths");
-    Student testStudent11(&nextFreeId, "Klaus", "English");
-    Student testStudent12(&nextFreeId, "Klaus", "German");
+    Student testStudent01(&nextFreeId, "John", "MA L1");
+    Student testStudent02(&nextFreeId, "Jane", "GE G1");
+    Student testStudent03(&nextFreeId, "Peter", "SP G1");
+    Student testStudent04(&nextFreeId, "Jens", "MA L1");
+    Student testStudent05(&nextFreeId, "Klaus", "GE G1");
+    Student testStudent06(&nextFreeId, "Klaus", "SP G1");
+    Student testStudent07(&nextFreeId, "John", "MA L1");
+    Student testStudent08(&nextFreeId, "Jane", "GE G1");
+    Student testStudent09(&nextFreeId, "Peter", "SP G1");
+    Student testStudent10(&nextFreeId, "Jens", "MA L1");
+    Student testStudent11(&nextFreeId, "Klaus", "GE G1");
+    Student testStudent12(&nextFreeId, "Klaus", "SP G1");
 
 
     testStudents.push_back(testStudent01);
