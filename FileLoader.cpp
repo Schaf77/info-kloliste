@@ -27,7 +27,7 @@ vector<Student> FileLoader::loadFile(const string& path) {
 
     // attempt to open file, throw exception when failed
     ifstream file(path);
-    if (!file.is_open()) throw std::runtime_error("Could not open file");
+    if (!file.is_open()) throw runtime_error("Could not open file");
 
     // read every line from file
     while (std::getline(file, line)) {
