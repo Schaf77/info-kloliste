@@ -39,7 +39,8 @@ json ToiletList::getStudentStatus(const int id) const {
     json output = {
         {"name", student.getName()},
         {"subject", student.getSubject()},
-        {"isQueued", student.getQueuedState()}
+        {"isQueued", student.getQueuedState()},
+        {"isOnToilet", student.getToiletState()}
     };
 
     return output;
@@ -60,16 +61,17 @@ void ToiletList::queueStudent(const int id) {
     try {
         // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
         Student student = students.at(id);
+        const string subject = student.getSubject();
 
         // check if student is already queued or on the toilet
-        if (student.getQueuedState() && student.getToiletState()) return;
+        if (student.getQueuedState() || student.getToiletState()) return;
 
         // send the student to the toilet, if it's available
-        if (checkToiletAvailability(student.getSubject())) {
+        if (checkToiletAvailability(subject)) {
             updateStudentToiletStatus(id, true);
         } else {
             // otherwise queue the student in his subject's queue
-            toiletQueueMap[student.getSubject()].push(student);
+            toiletQueueMap[subject].push(student);
             student.setQueuedState(true);
         }
     } catch (const out_of_range& oor) {
@@ -92,7 +94,6 @@ void ToiletList::returnStudent(const int id) {
         updateStudentToiletStatus(nextStudent.getId(), true);
         // remove the student from the queue
         toiletQueueMap[subject].pop();
-        // remove the student from the queue
         nextStudent.setQueuedState(false);
     }
 }
