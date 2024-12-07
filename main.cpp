@@ -1,6 +1,5 @@
 #include <iostream>
 #include <vector>
-#include <list>
 #include "ToiletList.h"
 #include "Student.h"
 #include "FileLoader.h"
@@ -8,10 +7,9 @@
 using namespace std;
 
 int main() {
-    FileLoader loader;
     //TODO relative Path
-    vector<Student> students = loader.loadFile("C:\\Users\\Oskar\\CLionProjects\\info-kloliste\\kloliste-beispiel.csv");
-    vector<string> subjects = loader.getSubjects(students);
+    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
+    const vector<string> subjects = FileLoader::getSubjects(students);
 
     ToiletList toiletList(students, subjects);
     cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;

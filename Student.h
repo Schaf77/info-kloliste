@@ -11,11 +11,11 @@ using namespace std;
 class Student {
 public:
     Student(int *pNextFreeId, const string &name, const string &subject);
-    int getId();
+    int getId() const;
     string getName();
     string getSubject();
-    bool getToiletState();
-    bool getQueuedState();
+    bool getToiletState() const;
+    bool getQueuedState() const;
     void setToiletState(bool state);
     void setQueuedState(bool state);
 private:

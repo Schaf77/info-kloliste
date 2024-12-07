@@ -18,7 +18,7 @@ Student::Student(int *pNextFreeId, const string &name, const string &subject) {
     this->subject = subject;
 }
 
-int Student::getId() {
+int Student::getId() const {
     return this->id;
 }
 
@@ -29,18 +29,18 @@ string Student::getSubject() {
 string Student::getName() {
     return this->name;
 }
-bool Student::getToiletState() {
+bool Student::getToiletState() const {
     return this->isOnToilet;
 }
 
-bool Student::getQueuedState() {
+bool Student::getQueuedState() const {
     return this->isQueued;
 }
 
-void Student::setToiletState(bool state) {
+void Student::setToiletState(const bool state) {
     this->isOnToilet = state;
 }
 
-void Student::setQueuedState(bool state) {
+void Student::setQueuedState(const bool state) {
     this->isQueued = state;
 }

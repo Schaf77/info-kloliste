@@ -4,7 +4,6 @@
 
 #include <string>
 #include <utility>
-#include <list>
 #include "ToiletList.h"
 #include <iostream>
 #include "json.hpp"
@@ -34,7 +33,7 @@ void ToiletList::updateStudentToiletStatus(const int id, const bool isOnToilet) 
     students.at(id).setToiletState(isOnToilet);
 }
 
-json ToiletList::getStudentStatus(const int id) {
+json ToiletList::getStudentStatus(const int id) const {
     Student student = students.at(id);
 
     json output = {
