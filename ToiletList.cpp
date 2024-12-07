@@ -17,7 +17,7 @@ ToiletList::ToiletList(vector<Student> students, const vector<string>& subjects)
 
     // create a queue for each subject
     for (const string& subject : subjects) {
-        toiletQueueMap.at(subject) = queue<Student>();
+        toiletQueueMap[subject] = queue<Student>();
     }
 }
 
@@ -50,7 +50,7 @@ json ToiletList::getToiletStatus(string subject) {
     json output = {
         {"subject", subject},
         {"availability", checkToiletAvailability(subject)},
-        {"queueLength", toiletQueueMap.at(subject).size()}
+        {"queueLength", toiletQueueMap[subject].size()}
     };
 
     return output;
@@ -70,7 +70,7 @@ void ToiletList::queueStudent(const int id) {
             updateStudentToiletStatus(id, true);
         } else {
             // otherwise queue the student in his subject's queue
-            toiletQueueMap.at(student.getSubject()).push(student);
+            toiletQueueMap[student.getSubject()].push(student);
             student.setQueuedState(true);
         }
     } catch (const out_of_range& oor) {
@@ -85,14 +85,14 @@ void ToiletList::returnStudent(const int id) {
     updateStudentToiletStatus(id, false);
 
     // only send the next student from the queue if the queue isn't empty
-    if (!toiletQueueMap.at(subject).empty()) {
+    if (!toiletQueueMap[subject].empty()) {
 
         // get the next student in line
-        Student nextStudent = toiletQueueMap.at(subject).front();
+        Student nextStudent = toiletQueueMap[subject].front();
         // send the student to the toilet
         updateStudentToiletStatus(nextStudent.getId(), true);
         // remove the student from the queue
-        toiletQueueMap.at(subject).pop();
+        toiletQueueMap[subject].pop();
         // remove the student from the queue
         nextStudent.setQueuedState(false);
     }
