@@ -12,8 +12,10 @@
 using json = nlohmann::json;
 
 ToiletList::ToiletList(vector<Student> students, const vector<string>& subjects) {
+    // transfer ownership of students vector
     this->students = std::move(students);
 
+    // create a queue for each subject
     for (const string& subject : subjects) {
         toiletQueueMap.at(subject) = queue<Student>();
     }
@@ -57,6 +59,7 @@ json ToiletList::getToiletStatus(string subject) {
 
 void ToiletList::queueStudent(const int id) {
     try {
+        // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
         Student student = students.at(id);
 
         // check if student is already queued or on the toilet
@@ -77,9 +80,11 @@ void ToiletList::queueStudent(const int id) {
 
 
 void ToiletList::returnStudent(const int id) {
+    // set variables for increased readability
     const string subject = students.at(id).getSubject();
     updateStudentToiletStatus(id, false);
 
+    // only send the next student from the queue if the queue isn't empty
     if (!toiletQueueMap.at(subject).empty()) {
 
         // get the next student in line
