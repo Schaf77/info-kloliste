@@ -38,20 +38,20 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     cout << "Welcome!" << endl;
     while (true) {
         // welcome text
-        cout << "Available commands:\nStatus, StudentStatus, Queue, Return, Stop" << endl;
+        cout << "Available commands:\nstatus, studentStatus, queue, return, stop" << endl;
 
         // get user input
         string input;
         cin >> input;
 
         // analyse input
-        if (input == "Status") {
+        if (input == "status") {
             // output status of toilet for each subject
             for (const string& subject : subjects) {
                 cout << toiletList.getToiletStatus(subject) << endl;
             }
         }
-        else if (input == "StudentStatus") {
+        else if (input == "studentStatus") {
             // get student id from user
             cout << "Enter student id: " << endl;
             int id;
@@ -60,7 +60,7 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
             // output student status
             cout << toiletList.getStudentStatus(id) << endl;
         }
-        else if (input == "Queue") {
+        else if (input == "queue") {
             // get student id from user
             cout << "Enter student id: " << endl;
             int id;
@@ -70,7 +70,7 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
             toiletList.queueStudent(id);
             cout << "student " << id << " queued" << endl;
         }
-        else if (input == "Return") {
+        else if (input == "return") {
             // get student id from user
             cout << "Enter student id: " << endl;
             int id;
@@ -80,7 +80,7 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
             toiletList.returnStudent(id);
             cout << "student " << id << " returned" << endl;
         }
-        else if (input == "Stop") return;
+        else if (input == "stop") return;
         else {
             cout << "Invalid input." << endl;
         }
