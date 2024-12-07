@@ -42,7 +42,7 @@ json ToiletList::getStudentStatus(const int id) const {
         {"isQueued", student.getQueuedState()}
     };
 
-    return students.at(id).getToiletState();
+    return output;
 }
 
 json ToiletList::getToiletStatus(string subject) {
