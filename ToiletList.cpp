@@ -60,19 +60,19 @@ json ToiletList::getToiletStatus(string subject) {
 void ToiletList::queueStudent(const int id) {
     try {
         // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
-        Student student = students.at(id);
-        const string subject = student.getSubject();
+        Student *pStudent = &(students.at(id));
+        const string subject = pStudent->getSubject();
 
         // check if student is already queued or on the toilet
-        if (student.getQueuedState() || student.getToiletState()) return;
+        if (pStudent->getQueuedState() || pStudent->getToiletState()) return;
 
         // send the student to the toilet, if it's available
         if (checkToiletAvailability(subject)) {
             updateStudentToiletStatus(id, true);
         } else {
             // otherwise queue the student in his subject's queue
-            toiletQueueMap[subject].push(student);
-            student.setQueuedState(true);
+            toiletQueueMap[subject].push(*pStudent);
+            pStudent->setQueuedState(true);
         }
     } catch (const out_of_range& oor) {
         cerr << "Out of Range error: " << oor.what() << endl;
