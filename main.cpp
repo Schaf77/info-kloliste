@@ -15,21 +15,6 @@ int main() {
 
     ToiletList toiletList(students, subjects);
     terminalInterface(toiletList, subjects);
-    // cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
-    // cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
-    // cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
-    // toiletList.queueStudent(0);
-    // cout << "Changed" << endl;
-    // cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
-    // cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
-    // cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
-    // toiletList.queueStudent(1);
-    // cout << "Changed" << endl;
-    // cout << "MA L1: " << toiletList.checkToiletAvailability("MA L1") << endl;
-    // cout << "GE G1: " << toiletList.checkToiletAvailability("GE G1") << endl;
-    // cout << "SP G1: " << toiletList.checkToiletAvailability("SP G1") << endl;
-    // toiletList.returnStudent(0);
-
 
     return 0;
 }
