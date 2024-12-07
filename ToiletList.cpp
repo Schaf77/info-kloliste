@@ -13,7 +13,7 @@ using json = nlohmann::json;
 
 ToiletList::ToiletList(vector<Student> students, const vector<string>& subjects) {
     // transfer ownership of students vector
-    this->students = std::move(students);
+    this->students = move(students);
 
     // create a queue for each subject
     for (const string& subject : subjects) {
