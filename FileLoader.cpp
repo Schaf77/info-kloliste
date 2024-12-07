@@ -85,7 +85,7 @@ vector<string> FileLoader::getSubjects(const vector<Student> &students) {
 
     for (Student student : students) {
         string subject = student.getSubject();
-        if (find(subjects.begin(), subjects.end(), subject) == subjects.end()) {
+        if (ranges::find(subjects, subject) == subjects.end()) {
             subjects.push_back(subject);
         }
     }
