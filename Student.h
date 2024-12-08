@@ -4,6 +4,7 @@
 
 #ifndef STUDENT_H
 #define STUDENT_H
+#include <cstdint>
 #include <string>
 
 using namespace std;
@@ -11,8 +12,8 @@ using namespace std;
 
 class Student {
 public:
-    Student(int *pNextFreeId, const string &name, const string &subject);
-    [[nodiscard]] int getId() const;
+    Student(uint16_t *pNextFreeId, const string &name, const string &subject);
+    [[nodiscard]] uint16_t getId() const;
     string getName();
     string getSubject();
     [[nodiscard]] bool getToiletState() const;
@@ -20,7 +21,7 @@ public:
     void setToiletState(bool state);
     void setQueuedState(bool state);
 private:
-    int id;
+    uint16_t id;
     string name;
     string subject;
     bool isOnToilet;

@@ -23,7 +23,7 @@ vector<Student> FileLoader::loadFile(const string& path) {
     // result map, where the key is the subject  and the element is a vector with all the students
     vector<Student> students;
     string line, subject, name;
-    int nextFreeId = 0;
+    uint16_t nextFreeId = 0;
 
     // attempt to open file, throw exception when failed
     ifstream file(path);

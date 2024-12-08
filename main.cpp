@@ -6,6 +6,7 @@
 #include "FileLoader.h"
 #include "gui.h"
 #include "main.h"
+#include "json.hpp"
 
 using namespace std;
 
@@ -86,14 +87,30 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     }
 }
 
-void queueStudent(const int& id) {
+void queueStudent(const uint16_t& id) {
     qDebug() << "Queue started";
     toiletList.queueStudent(id);
     cout << toiletList.getStudentStatus(id) << endl;
 }
 
-void returnStudent(const int& id) {
+void returnStudent(const uint16_t& id) {
     qDebug() << "Return started";
     toiletList.returnStudent(id);
     cout << toiletList.getStudentStatus(id) << endl;
 }
+
+QString subjectStatus(const std::string& subject) {
+    qDebug() << "Getting subject status from subject: " << subject;
+    return jsonToString(toiletList.getToiletStatus(subject));
+}
+
+QString studentStatus(const uint16_t& student) {
+    qDebug() << "Getting student status for " << student;
+    return jsonToString(toiletList.getStudentStatus(student));
+}
+
+
+QString jsonToString(const json& jsonObj) {
+    return QString::fromStdString(jsonObj.dump());
+}
+

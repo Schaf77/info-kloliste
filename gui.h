@@ -7,6 +7,7 @@
 
 #include <QLineEdit>
 #include <QPushButton>
+#include <QLabel>
 
 
 QT_BEGIN_NAMESPACE
@@ -21,11 +22,15 @@ public:
     ~gui() override;
 private:
     Ui::gui *ui{};
-    QPushButton buttonQueue, buttonReturn;
-    QLineEdit textFieldQueue, textFieldReturn;
+    QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonSudentStatus;
+    QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldSudentStatus;
+    QLabel labelLastOutput;
 private slots:
     void handleQueueButton();
     void handleReturnButton();
+    void handleSubjectStatusButton();
+    void handleStudentStatusButton();
+    void updateLastCoutLabel(const QString &text);
 };
 
 

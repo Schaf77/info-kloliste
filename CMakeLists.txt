@@ -5,6 +5,11 @@ set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_PREFIX_PATH "C:\\Qt\\6.8.1\\mingw_64\\lib\\cmake")
 set(QT_PLUGIN_PATH "C:\\Qt\\6.8.1\\mingw_64\\plugins")
 
+# static build options
+#set(CMAKE_EXE_LINKER_FLAGS "-static-libgcc -static-libstdc++")
+#set(CMAKE_FIND_LIBRARY_SUFFIXES ".a" ".lib")
+#set(BUILD_SHARED_LIBS OFF)
+
 find_package(Qt6Widgets REQUIRED)
 
 set(CMAKE_AUTOMOC ON)

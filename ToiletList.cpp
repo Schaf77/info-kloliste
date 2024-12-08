@@ -33,16 +33,16 @@ bool ToiletList::checkToiletAvailability(const string& subject) {
     return true;
 }
 
-void ToiletList::updateStudentToiletStatus(const int id, const bool isOnToilet) {
+void ToiletList::updateStudentToiletStatus(const uint16_t id, const bool isOnToilet) {
     students.at(id).setToiletState(isOnToilet);
 }
 
-void ToiletList::updateStudentQueueStatus(const int id, bool isQueued) {
+void ToiletList::updateStudentQueueStatus(const uint16_t id, bool isQueued) {
     students.at(id).setQueuedState(isQueued);
 }
 
 
-json ToiletList::getStudentStatus(const int id) const {
+json ToiletList::getStudentStatus(const uint16_t id) const {
     Student student = students.at(id);
 
     json output = {
@@ -66,7 +66,7 @@ json ToiletList::getToiletStatus(string subject) {
 }
 
 
-void ToiletList::queueStudent(const int id) {
+void ToiletList::queueStudent(const uint16_t id) {
     try {
         // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
         Student *pStudent = &(students.at(id));
@@ -89,7 +89,7 @@ void ToiletList::queueStudent(const int id) {
 }
 
 
-void ToiletList::returnStudent(const int id) {
+void ToiletList::returnStudent(const uint16_t id) {
     // set variable for increased readability
     const string subject = students.at(id).getSubject();
 

@@ -21,12 +21,12 @@ public:
     ToiletList();
     void init(vector<Student> students, const vector<string>& subjects);
     bool checkToiletAvailability(const string& subject);
-    [[nodiscard]] json getStudentStatus(int id) const;
+    [[nodiscard]] json getStudentStatus(uint16_t id) const;
     json getToiletStatus(string subject);
-    void queueStudent(int id);
-    void returnStudent(int id);
-    void updateStudentToiletStatus(int id, bool isOnToilet);
-    void updateStudentQueueStatus(int id, bool isQueued);
+    void queueStudent(uint16_t id);
+    void returnStudent(uint16_t id);
+    void updateStudentToiletStatus(uint16_t id, bool isOnToilet);
+    void updateStudentQueueStatus(uint16_t id, bool isQueued);
 private:
     map<string, queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
     vector<Student> students;

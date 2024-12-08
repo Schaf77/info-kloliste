@@ -4,7 +4,7 @@
 
 #include "Student.h"
 
-Student::Student(int *pNextFreeId, const string &name, const string &subject) {
+Student::Student(uint16_t *pNextFreeId, const string &name, const string &subject) {
     // assign next available id and increment the nextFreeId variable
     this->id = *(pNextFreeId);
     (*pNextFreeId)++;
@@ -18,7 +18,7 @@ Student::Student(int *pNextFreeId, const string &name, const string &subject) {
     this->subject = subject;
 }
 
-int Student::getId() const {
+uint16_t Student::getId() const {
     return this->id;
 }
 

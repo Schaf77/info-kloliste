@@ -5,7 +5,13 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void queueStudent(const int& id);
-void returnStudent(const int& id);
+#include <string>
+#include "json.hpp"
+
+void queueStudent(const uint16_t& id);
+void returnStudent(const uint16_t& id);
+QString subjectStatus(const std::string& subject);
+QString studentStatus(const uint16_t& student);
+QString jsonToString(const nlohmann::json& jsonObj);
 
 #endif //MAIN_H

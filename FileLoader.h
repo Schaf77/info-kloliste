@@ -18,7 +18,7 @@ public:
     vector<Student> loadExample();
     static vector<string> getSubjects(const vector<Student>& students);
 private:
-    int nextFreeId;
+    uint16_t nextFreeId;
 };
 
 
