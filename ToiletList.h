@@ -20,9 +20,9 @@ class ToiletList {
 public:
     ToiletList();
     void init(vector<Student> students, const vector<string>& subjects);
-    bool checkToiletAvailability(const string& subject);
+    [[noddiscard]] bool checkToiletAvailability(const string& subject);
     [[nodiscard]] json getStudentStatus(uint16_t id) const;
-    json getToiletStatus(string subject);
+    [[nodiscard]] json getToiletStatus(string subject);
     void queueStudent(uint16_t id);
     void returnStudent(uint16_t id);
     void updateStudentToiletStatus(uint16_t id, bool isOnToilet);
