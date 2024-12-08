@@ -22,11 +22,11 @@ gui::gui(QWidget *parent)
 
     ui->setupUi(this);
     // set size and location of the buttons
-    buttonQueue.setGeometry(QRect(QPoint(100, 100), QSize(200, 50)));
-    buttonReturn.setGeometry(QRect(QPoint(310, 100), QSize(200, 50)));
-    buttonSubjectStatus.setGeometry(QRect(QPoint(520, 100), QSize(200, 50)));
-    buttonSudentStatus.setGeometry(QRect(QPoint(730, 100), QSize(200, 50)));
-    buttonStudentId.setGeometry(QRect(QPoint(100, 220), QSize(200, 50)));
+    buttonQueue.setGeometry(QRect(QPoint(100, 90), QSize(200, 50)));
+    buttonReturn.setGeometry(QRect(QPoint(310, 90), QSize(200, 50)));
+    buttonSubjectStatus.setGeometry(QRect(QPoint(520, 90), QSize(200, 50)));
+    buttonSudentStatus.setGeometry(QRect(QPoint(730, 90), QSize(200, 50)));
+    buttonStudentId.setGeometry(QRect(QPoint(100, 210), QSize(200, 50)));
 
     // Set size and location of the text fields
     textFieldQueue.setGeometry(QRect(QPoint(100, 50), QSize(200, 30)));
