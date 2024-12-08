@@ -33,6 +33,11 @@ void ToiletList::updateStudentToiletStatus(const int id, const bool isOnToilet) 
     students.at(id).setToiletState(isOnToilet);
 }
 
+void ToiletList::updateStudentQueueStatus(const int id, bool isQueued) {
+    students.at(id).setQueuedState(isQueued);
+}
+
+
 json ToiletList::getStudentStatus(const int id) const {
     Student student = students.at(id);
 
@@ -81,19 +86,21 @@ void ToiletList::queueStudent(const int id) {
 
 
 void ToiletList::returnStudent(const int id) {
-    // set variables for increased readability
+    // set variable for increased readability
     const string subject = students.at(id).getSubject();
+
+    // remove returned student from the toilet
     updateStudentToiletStatus(id, false);
 
     // only send the next student from the queue if the queue isn't empty
     if (!toiletQueueMap[subject].empty()) {
 
         // get the next student in line
-        Student nextStudent = toiletQueueMap[subject].front();
+        Student *pNextStudent = &toiletQueueMap[subject].front();
         // send the student to the toilet
-        updateStudentToiletStatus(nextStudent.getId(), true);
+        updateStudentToiletStatus(pNextStudent->getId(), true);
         // remove the student from the queue
+        updateStudentQueueStatus(pNextStudent->getId(), false);
         toiletQueueMap[subject].pop();
-        nextStudent.setQueuedState(false);
     }
 }

@@ -25,6 +25,7 @@ public:
     void queueStudent(int id);
     void returnStudent(int id);
     void updateStudentToiletStatus(int id, bool isOnToilet);
+    void updateStudentQueueStatus(int id, bool isQueued);
 private:
     map<string, queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
     vector<Student> students;
