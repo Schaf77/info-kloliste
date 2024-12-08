@@ -2,6 +2,14 @@ cmake_minimum_required(VERSION 3.29)
 project(info_kloliste)
 
 set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_PREFIX_PATH "C:\\Qt\\6.8.1\\mingw_64\\lib\\cmake")
+set(QT_PLUGIN_PATH "C:\\Qt\\6.8.1\\mingw_64\\plugins")
+
+find_package(Qt6Widgets REQUIRED)
+
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTOUIC ON)
+set(CMAKE_AUTORCC ON)
 
 add_executable(info_kloliste main.cpp
         ToiletList.cpp
@@ -9,4 +17,10 @@ add_executable(info_kloliste main.cpp
         Student.cpp
         Student.h
         FileLoader.cpp
-        FileLoader.h)
+        FileLoader.h
+        gui.cpp
+        gui.h
+        gui.ui
+        main.h)
+
+target_link_libraries(info_kloliste Qt6::Widgets)

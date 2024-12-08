@@ -1,22 +1,24 @@
 #include <iostream>
 #include <vector>
+#include <QApplication>
 #include "ToiletList.h"
 #include "Student.h"
 #include "FileLoader.h"
+#include "gui.h"
+#include "main.h"
 
 using namespace std;
 
 void terminalInterface(ToiletList toiletList, const vector<string>& subjects);
 
-int main() {
-    //TODO relative Path
-    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
-    const vector<string> subjects = FileLoader::getSubjects(students);
+int main(int argc, char *argv[]) {
+    qDebug() << "Main started";
 
-    ToiletList toiletList(students, subjects);
-    terminalInterface(toiletList, subjects);
+    QApplication app(argc, argv);
+    gui g;
+    g.show();
 
-    return 0;
+    return app.exec();
 }
 
 void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
@@ -72,4 +74,13 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     }
 }
 
+void startToiletList() {
+    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
+    const vector<string> subjects = FileLoader::getSubjects(students);
+
+    ToiletList toiletList(students, subjects);
+    //terminalInterface(toiletList, subjects);
+
+    qDebug() << "Toiletlist started";
+}
 
