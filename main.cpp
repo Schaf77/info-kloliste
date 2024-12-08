@@ -87,31 +87,49 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     }
 }
 
+
+// functions for gui
 void queueStudent(const uint16_t& id) {
-    qDebug() << "Queue started";
-    toiletList.queueStudent(id);
-    cout << toiletList.getStudentStatus(id) << endl;
+    try {
+        toiletList.queueStudent(id);
+    } catch (const invalid_argument& e) {
+        qDebug() << "Invalid ID: " << e.what();
+    }
 }
 
 void returnStudent(const uint16_t& id) {
-    qDebug() << "Return started";
-    toiletList.returnStudent(id);
-    cout << toiletList.getStudentStatus(id) << endl;
+    try {
+        toiletList.returnStudent(id);
+    } catch (const invalid_argument& e) {
+        qDebug() << "Invalid ID: " << e.what();
+    }
 }
 
 QString subjectStatus(const std::string& subject) {
-    qDebug() << "Getting subject status from subject: " << subject;
-    return jsonToString(toiletList.getToiletStatus(subject));
+    try {
+        return jsonToString(toiletList.getToiletStatus(subject));
+    } catch (const invalid_argument& e) {
+        qDebug() << "Invalid subject " << e.what();
+        return "";
+    }
 }
 
 QString studentStatus(const uint16_t& student) {
-    qDebug() << "Getting student status for " << student;
-    return jsonToString(toiletList.getStudentStatus(student));
+    try {
+        return jsonToString(toiletList.getStudentStatus(student));
+    } catch (const invalid_argument& e) {
+        qDebug() << "Student not found " << e.what();
+        return "";
+    }
 }
 
 uint16_t getStudentId(const std::string& name) {
-    qDebug() << "Getting student id for student " << name;
-    return toiletList.getIdFromStudent(name);
+    try {
+        return toiletList.getIdFromStudent(name);
+    } catch (const invalid_argument& e) {
+        qDebug() << "Student not found " << e.what();
+        return 65535;
+    }
 }
 
 QString jsonToString(const json& jsonObj) {

@@ -10,9 +10,7 @@
 
 using json = nlohmann::json;
 
-ToiletList::ToiletList() {
-
-}
+ToiletList::ToiletList() = default;
 
 void ToiletList::init(vector<Student> students, const vector<string> &subjects) {
     // transfer ownership of students vector
@@ -52,26 +50,34 @@ uint16_t ToiletList::getIdFromStudent(const string& name) {
 
 
 json ToiletList::getStudentStatus(const uint16_t id) const {
-    Student student = students.at(id);
+    try {
+        Student student = students.at(id);
 
-    json output = {
-        {"name", student.getName()},
-        {"subject", student.getSubject()},
-        {"isQueued", student.getQueuedState()},
-        {"isOnToilet", student.getToiletState()}
-    };
+        json output = {
+            {"name", student.getName()},
+            {"subject", student.getSubject()},
+            {"isQueued", student.getQueuedState()},
+            {"isOnToilet", student.getToiletState()}
+        };
 
-    return output;
+        return output;
+    } catch (out_of_range& e) {
+        throw invalid_argument("Student not found");
+    }
 }
 
 json ToiletList::getToiletStatus(string subject) {
-    json output = {
-        {"subject", subject},
-        {"availability", checkToiletAvailability(subject)},
-        {"queueLength", toiletQueueMap[subject].size()}
-    };
+    try {
+        json output = {
+            {"subject", subject},
+            {"availability", checkToiletAvailability(subject)},
+            {"queueLength", toiletQueueMap[subject].size()}
+        };
 
-    return output;
+        return output;
+    } catch (exception &e) {
+        throw invalid_argument("Invalid subject");
+    }
 }
 
 
@@ -94,26 +100,32 @@ void ToiletList::queueStudent(const uint16_t id) {
         }
     } catch (const out_of_range& oor) {
         cerr << "Out of Range error: " << oor.what() << endl;
+        throw invalid_argument("Student not found");
     }
 }
 
 
 void ToiletList::returnStudent(const uint16_t id) {
-    // set variable for increased readability
-    const string subject = students.at(id).getSubject();
+    try {
+        // set variable for increased readability
+        const string subject = students.at(id).getSubject();
 
-    // remove returned student from the toilet
-    updateStudentToiletStatus(id, false);
+        // remove returned student from the toilet
+        updateStudentToiletStatus(id, false);
 
-    // only send the next student from the queue if the queue isn't empty
-    if (!toiletQueueMap[subject].empty()) {
+        // only send the next student from the queue if the queue isn't empty
+        if (!toiletQueueMap[subject].empty()) {
 
-        // get the next student in line
-        Student *pNextStudent = &toiletQueueMap[subject].front();
-        // send the student to the toilet
-        updateStudentToiletStatus(pNextStudent->getId(), true);
-        // remove the student from the queue
-        updateStudentQueueStatus(pNextStudent->getId(), false);
-        toiletQueueMap[subject].pop();
+            // get the next student in line
+            Student *pNextStudent = &toiletQueueMap[subject].front();
+            // send the student to the toilet
+            updateStudentToiletStatus(pNextStudent->getId(), true);
+            // remove the student from the queue
+            updateStudentQueueStatus(pNextStudent->getId(), false);
+            toiletQueueMap[subject].pop();
+        }
+    } catch (const out_of_range& e) {
+        cerr << "Out of Range error: " << e.what() << endl;
+        throw invalid_argument("Student not found");
     }
 }
