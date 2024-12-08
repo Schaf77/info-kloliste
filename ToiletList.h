@@ -31,6 +31,7 @@ public:
 private:
     map<string, queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
     vector<Student> students;
+    vector<string> subjects;
 };
 
 

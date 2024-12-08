@@ -4,8 +4,9 @@
 
 #include <string>
 #include <utility>
-#include "ToiletList.h"
+#include <algorithm>
 #include <iostream>
+#include "ToiletList.h"
 #include "json.hpp"
 
 using json = nlohmann::json;
@@ -13,8 +14,9 @@ using json = nlohmann::json;
 ToiletList::ToiletList() = default;
 
 void ToiletList::init(vector<Student> students, const vector<string> &subjects) {
-    // transfer ownership of students vector
+    // transfer ownership of students and subjects vector
     this->students = move(students);
+    this->subjects = move(subjects);
 
     // create a queue for each subject
     for (const string& subject : subjects) {
@@ -68,6 +70,7 @@ json ToiletList::getStudentStatus(const uint16_t id) const {
 
 json ToiletList::getToiletStatus(string subject) {
     try {
+        if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
         json output = {
             {"subject", subject},
             {"availability", checkToiletAvailability(subject)},

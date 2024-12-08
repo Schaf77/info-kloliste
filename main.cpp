@@ -151,4 +151,3 @@ void windowsWarnDialogue(const wstring& errorMessage) {
         MB_ICONERROR | MB_OK
     );
 }
-
