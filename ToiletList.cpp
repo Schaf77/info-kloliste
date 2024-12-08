@@ -69,18 +69,15 @@ json ToiletList::getStudentStatus(const uint16_t id) const {
 }
 
 json ToiletList::getToiletStatus(string subject) {
-    try {
-        if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
-        json output = {
-            {"subject", subject},
-            {"availability", checkToiletAvailability(subject)},
-            {"queueLength", toiletQueueMap[subject].size()}
-        };
+    if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
 
-        return output;
-    } catch (exception &e) {
-        throw invalid_argument("Invalid subject");
-    }
+    json output = {
+        {"subject", subject},
+        {"availability", checkToiletAvailability(subject)},
+        {"queueLength", toiletQueueMap[subject].size()}
+    };
+
+    return output;
 }
 
 
