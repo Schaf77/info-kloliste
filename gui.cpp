@@ -5,31 +5,39 @@
 // You may need to build the project (run Qt uic code generator) to get "ui_gui.h" resolved
 
 #include "gui.h"
-
-#include <iostream>
-
 #include "ui_gui.h"
+#include "main.h"
+#include <QLineEdit>
 
+using namespace std;
 
 gui::gui(QWidget *parent)
-    : QWidget(parent), m_button("My Button", this)
+    : QWidget(parent), buttonQueue("Queue", this), textFieldQueue(this), buttonReturn("Return", this), textFieldReturn(this)
 {
 
     ui->setupUi(this);
-    // set size and location of the button
-    m_button.setGeometry(QRect(QPoint(100, 100), QSize(200, 50)));
+    // set size and location of the buttons
+    buttonQueue.setGeometry(QRect(QPoint(100, 100), QSize(200, 50)));
+    buttonReturn.setGeometry(QRect(QPoint(310, 100), QSize(200, 50)));
+
+    // Set size and location of the text field
+    textFieldQueue.setGeometry(QRect(QPoint(100, 50), QSize(200, 30)));
+    textFieldReturn.setGeometry(QRect(QPoint(310, 50), QSize(200, 30)));
 
     // Connect button signal to appropriate slot
-    connect(&m_button, &QPushButton::released, this, &gui::handleButton);
+    connect(&buttonQueue, &QPushButton::released, this, &gui::handleQueueButton);
+    connect(&buttonReturn, &QPushButton::released, this, &gui::handleReturnButton);
 
-    m_button.setStyleSheet("background-color: white; color: black;");
+    //buttonQueue.setStyleSheet("background-color: white; color: black;");
 }
 
-void gui::handleButton()
+void gui::handleQueueButton()
 {
-    qDebug() << "Button clicked.";
+    queueStudent(textFieldQueue.text().toInt());
+}
 
-    startToiletList();
+void gui::handleReturnButton() {
+    returnStudent(textFieldReturn.text().toInt());
 }
 
 gui::~gui() {

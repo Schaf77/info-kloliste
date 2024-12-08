@@ -5,6 +5,7 @@
 #ifndef MAIN_H
 #define MAIN_H
 
-void startToiletList();
+void queueStudent(const int& id);
+void returnStudent(const int& id);
 
 #endif //MAIN_H

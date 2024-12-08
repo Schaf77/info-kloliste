@@ -18,7 +18,8 @@ using namespace std;
 
 class ToiletList {
 public:
-    ToiletList(vector<Student> students, const vector<string>& subjects);
+    ToiletList();
+    void init(vector<Student> students, const vector<string>& subjects);
     bool checkToiletAvailability(const string& subject);
     [[nodiscard]] json getStudentStatus(int id) const;
     json getToiletStatus(string subject);

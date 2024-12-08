@@ -5,8 +5,8 @@
 #ifndef GUI_H
 #define GUI_H
 
+#include <QLineEdit>
 #include <QPushButton>
-#include "main.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -21,9 +21,11 @@ public:
     ~gui() override;
 private:
     Ui::gui *ui{};
-    QPushButton m_button;
+    QPushButton buttonQueue, buttonReturn;
+    QLineEdit textFieldQueue, textFieldReturn;
 private slots:
-    void handleButton();
+    void handleQueueButton();
+    void handleReturnButton();
 };
 
 

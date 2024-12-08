@@ -10,7 +10,11 @@
 
 using json = nlohmann::json;
 
-ToiletList::ToiletList(vector<Student> students, const vector<string>& subjects) {
+ToiletList::ToiletList() {
+
+}
+
+void ToiletList::init(vector<Student> students, const vector<string> &subjects) {
     // transfer ownership of students vector
     this->students = move(students);
 

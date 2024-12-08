@@ -11,12 +11,24 @@ using namespace std;
 
 void terminalInterface(ToiletList toiletList, const vector<string>& subjects);
 
+ToiletList toiletList{};
+
 int main(int argc, char *argv[]) {
     qDebug() << "Main started";
+
+    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
+    const vector<string> subjects = FileLoader::getSubjects(students);
+
+    toiletList.init(students, subjects);
+    //terminalInterface(toiletList, subjects);
+
+    qDebug() << "Toiletlist started";
 
     QApplication app(argc, argv);
     gui g;
     g.show();
+
+    qDebug() << "GUI started";
 
     return app.exec();
 }
@@ -74,13 +86,14 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     }
 }
 
-void startToiletList() {
-    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
-    const vector<string> subjects = FileLoader::getSubjects(students);
-
-    ToiletList toiletList(students, subjects);
-    //terminalInterface(toiletList, subjects);
-
-    qDebug() << "Toiletlist started";
+void queueStudent(const int& id) {
+    qDebug() << "Queue started";
+    toiletList.queueStudent(id);
+    cout << toiletList.getStudentStatus(id) << endl;
 }
 
+void returnStudent(const int& id) {
+    qDebug() << "Return started";
+    toiletList.returnStudent(id);
+    cout << toiletList.getStudentStatus(id) << endl;
+}
