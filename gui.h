@@ -22,15 +22,16 @@ public:
     ~gui() override;
 private:
     Ui::gui *ui{};
-    QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonSudentStatus;
-    QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldSudentStatus;
+    QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonSudentStatus, buttonStudentId;
+    QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldSudentStatus, textFieldStudentId;
     QLabel labelLastOutput;
 private slots:
-    void handleQueueButton();
-    void handleReturnButton();
+    void handleQueueButton() const;
+    void handleReturnButton() const;
     void handleSubjectStatusButton();
     void handleStudentStatusButton();
-    void updateLastCoutLabel(const QString &text);
+    void handleStudentIdButton();
+    void updateLastOutputLabel(const QString &text);
 };
 
 

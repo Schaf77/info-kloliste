@@ -12,6 +12,7 @@ void queueStudent(const uint16_t& id);
 void returnStudent(const uint16_t& id);
 QString subjectStatus(const std::string& subject);
 QString studentStatus(const uint16_t& student);
+uint16_t getStudentId(const std::string& name);
 QString jsonToString(const nlohmann::json& jsonObj);
 
 #endif //MAIN_H

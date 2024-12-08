@@ -41,6 +41,15 @@ void ToiletList::updateStudentQueueStatus(const uint16_t id, bool isQueued) {
     students.at(id).setQueuedState(isQueued);
 }
 
+uint16_t ToiletList::getIdFromStudent(const string& name) {
+    for (Student student : this->students) {
+        if (student.getName() == name) {
+            return student.getId();
+        }
+    }
+    throw std::invalid_argument("Student not found");
+}
+
 
 json ToiletList::getStudentStatus(const uint16_t id) const {
     Student student = students.at(id);

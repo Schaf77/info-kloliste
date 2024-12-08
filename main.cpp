@@ -109,6 +109,10 @@ QString studentStatus(const uint16_t& student) {
     return jsonToString(toiletList.getStudentStatus(student));
 }
 
+uint16_t getStudentId(const std::string& name) {
+    qDebug() << "Getting student id for student " << name;
+    return toiletList.getIdFromStudent(name);
+}
 
 QString jsonToString(const json& jsonObj) {
     return QString::fromStdString(jsonObj.dump());

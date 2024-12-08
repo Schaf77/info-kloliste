@@ -16,6 +16,7 @@ gui::gui(QWidget *parent)
     buttonReturn("Return", this), textFieldReturn(this),
     buttonSubjectStatus ("Subject Status", this), textFieldSubjectStatus(this),
     buttonSudentStatus ("Student Status", this), textFieldSudentStatus(this),
+    buttonStudentId("Student ID", this), textFieldStudentId(this),
     labelLastOutput(this)
 {
 
@@ -25,12 +26,14 @@ gui::gui(QWidget *parent)
     buttonReturn.setGeometry(QRect(QPoint(310, 100), QSize(200, 50)));
     buttonSubjectStatus.setGeometry(QRect(QPoint(520, 100), QSize(200, 50)));
     buttonSudentStatus.setGeometry(QRect(QPoint(730, 100), QSize(200, 50)));
+    buttonStudentId.setGeometry(QRect(QPoint(100, 220), QSize(200, 50)));
 
     // Set size and location of the text fields
     textFieldQueue.setGeometry(QRect(QPoint(100, 50), QSize(200, 30)));
     textFieldReturn.setGeometry(QRect(QPoint(310, 50), QSize(200, 30)));
     textFieldSubjectStatus.setGeometry(QRect(QPoint(520, 50), QSize(200, 30)));
     textFieldSudentStatus.setGeometry(QRect(QPoint(730, 50), QSize(200, 30)));
+    textFieldStudentId.setGeometry(QRect(QPoint(100, 170), QSize(200, 30)));
 
     // set size and location of labels
     labelLastOutput.setGeometry(QRect(QPoint(000, 0), QSize(1000, 50)));
@@ -42,17 +45,18 @@ gui::gui(QWidget *parent)
     connect(&buttonReturn, &QPushButton::released, this, &gui::handleReturnButton);
     connect(&buttonSubjectStatus, &QPushButton::released, this, &gui::handleSubjectStatusButton);
     connect(&buttonSudentStatus, &QPushButton::released, this, &gui::handleStudentStatusButton);
+    connect(&buttonStudentId, &QPushButton::released, this, &gui::handleStudentIdButton);
 
     //buttonQueue.setStyleSheet("background-color: white; color: black;");
 }
 
-void gui::handleQueueButton() {
+void gui::handleQueueButton() const {
     // Convert the result of toInt() to uint16_t
     const uint16_t value = static_cast<uint16_t>(textFieldQueue.text().toInt());
     queueStudent(value);
 }
 
-void gui::handleReturnButton() {
+void gui::handleReturnButton() const {
     // Convert the result of toInt() to uint16_t
     const uint16_t value = static_cast<uint16_t>(textFieldReturn.text().toInt());
     returnStudent(value);
@@ -60,15 +64,21 @@ void gui::handleReturnButton() {
 
 void gui::handleSubjectStatusButton() {
     const string subject = textFieldSubjectStatus.text().toStdString();
-    updateLastCoutLabel(subjectStatus(subject));
+    updateLastOutputLabel(subjectStatus(subject));
 }
 
 void gui::handleStudentStatusButton() {
     const uint16_t student = static_cast<uint16_t>(textFieldSudentStatus.text().toInt());
-    updateLastCoutLabel(studentStatus(student));
+    updateLastOutputLabel(studentStatus(student));
 }
 
-void gui::updateLastCoutLabel(const QString& text) {
+void gui::handleStudentIdButton() {
+    const string name = textFieldStudentId.text().toStdString();
+    uint16_t id = getStudentId(name);
+    updateLastOutputLabel(QString::number(id));
+}
+
+void gui::updateLastOutputLabel(const QString& text) {
     labelLastOutput.setText(text);
 }
 
