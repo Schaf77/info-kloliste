@@ -15,8 +15,7 @@ gui::gui(QWidget *parent)
     : QWidget(parent), buttonQueue("Queue", this), textFieldQueue(this),
     buttonReturn("Return", this), textFieldReturn(this),
     buttonSubjectStatus ("Subject Status", this), textFieldSubjectStatus(this),
-    buttonSudentStatus ("Student Status", this), textFieldSudentStatus(this),
-    buttonStudentId("Student ID", this), textFieldStudentId(this),
+    buttonStudentStatus ("Student Status", this), textFieldStudentStatus(this),
     labelLastOutput(this)
 {
 
@@ -25,15 +24,13 @@ gui::gui(QWidget *parent)
     buttonQueue.setGeometry(QRect(QPoint(100, 90), QSize(200, 50)));
     buttonReturn.setGeometry(QRect(QPoint(310, 90), QSize(200, 50)));
     buttonSubjectStatus.setGeometry(QRect(QPoint(520, 90), QSize(200, 50)));
-    buttonSudentStatus.setGeometry(QRect(QPoint(730, 90), QSize(200, 50)));
-    buttonStudentId.setGeometry(QRect(QPoint(100, 210), QSize(200, 50)));
+    buttonStudentStatus.setGeometry(QRect(QPoint(730, 90), QSize(200, 50)));
 
     // Set size and location of the text fields
     textFieldQueue.setGeometry(QRect(QPoint(100, 50), QSize(200, 30)));
     textFieldReturn.setGeometry(QRect(QPoint(310, 50), QSize(200, 30)));
     textFieldSubjectStatus.setGeometry(QRect(QPoint(520, 50), QSize(200, 30)));
-    textFieldSudentStatus.setGeometry(QRect(QPoint(730, 50), QSize(200, 30)));
-    textFieldStudentId.setGeometry(QRect(QPoint(100, 170), QSize(200, 30)));
+    textFieldStudentStatus.setGeometry(QRect(QPoint(730, 50), QSize(200, 30)));
 
     // set size and location of labels
     labelLastOutput.setGeometry(QRect(QPoint(000, 0), QSize(1000, 50)));
@@ -44,22 +41,23 @@ gui::gui(QWidget *parent)
     connect(&buttonQueue, &QPushButton::released, this, &gui::handleQueueButton);
     connect(&buttonReturn, &QPushButton::released, this, &gui::handleReturnButton);
     connect(&buttonSubjectStatus, &QPushButton::released, this, &gui::handleSubjectStatusButton);
-    connect(&buttonSudentStatus, &QPushButton::released, this, &gui::handleStudentStatusButton);
-    connect(&buttonStudentId, &QPushButton::released, this, &gui::handleStudentIdButton);
+    connect(&buttonStudentStatus, &QPushButton::released, this, &gui::handleStudentStatusButton);
 
     //buttonQueue.setStyleSheet("background-color: white; color: black;");
 }
 
 void gui::handleQueueButton() const {
     // Convert the result of toInt() to uint16_t
-    const uint16_t value = static_cast<uint16_t>(textFieldQueue.text().toInt());
-    queueStudent(value);
+    const string name = textFieldQueue.text().toStdString();
+    const uint16_t id = getStudentId(name);
+    queueStudent(id);
 }
 
 void gui::handleReturnButton() const {
     // Convert the result of toInt() to uint16_t
-    const uint16_t value = static_cast<uint16_t>(textFieldReturn.text().toInt());
-    returnStudent(value);
+    const string name = textFieldReturn.text().toStdString();
+    const uint16_t id = getStudentId(name);
+    returnStudent(id);
 }
 
 void gui::handleSubjectStatusButton() {
@@ -68,14 +66,9 @@ void gui::handleSubjectStatusButton() {
 }
 
 void gui::handleStudentStatusButton() {
-    const uint16_t student = static_cast<uint16_t>(textFieldSudentStatus.text().toInt());
-    updateLastOutputLabel(studentStatus(student));
-}
-
-void gui::handleStudentIdButton() {
-    const string name = textFieldStudentId.text().toStdString();
-    uint16_t id = getStudentId(name);
-    updateLastOutputLabel(QString::number(id));
+    const string name = textFieldStudentStatus.text().toStdString();
+    const uint16_t id = getStudentId(name);
+    updateLastOutputLabel(studentStatus(id));
 }
 
 void gui::updateLastOutputLabel(const QString& text) {
