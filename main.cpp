@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <QApplication>
+#include <windows.h>
 #include "ToiletList.h"
 #include "Student.h"
 #include "FileLoader.h"
@@ -11,6 +12,7 @@
 using namespace std;
 
 void terminalInterface(ToiletList toiletList, const vector<string>& subjects);
+void windowsWarnDialogue(const wstring& errorMessage);
 
 ToiletList toiletList{};
 
@@ -93,7 +95,8 @@ void queueStudent(const uint16_t& id) {
     try {
         toiletList.queueStudent(id);
     } catch (const invalid_argument& e) {
-        qDebug() << "Invalid ID: " << e.what();
+        qDebug() << e.what();
+        windowsWarnDialogue(L"Invalid Student ID");
     }
 }
 
@@ -101,7 +104,8 @@ void returnStudent(const uint16_t& id) {
     try {
         toiletList.returnStudent(id);
     } catch (const invalid_argument& e) {
-        qDebug() << "Invalid ID: " << e.what();
+        qDebug() << e.what();
+        windowsWarnDialogue(L"Invalid Student ID");
     }
 }
 
@@ -109,7 +113,8 @@ QString subjectStatus(const std::string& subject) {
     try {
         return jsonToString(toiletList.getToiletStatus(subject));
     } catch (const invalid_argument& e) {
-        qDebug() << "Invalid subject " << e.what();
+        qDebug() << e.what();
+        windowsWarnDialogue(L"Invalid  Subject");
         return "";
     }
 }
@@ -118,7 +123,8 @@ QString studentStatus(const uint16_t& student) {
     try {
         return jsonToString(toiletList.getStudentStatus(student));
     } catch (const invalid_argument& e) {
-        qDebug() << "Student not found " << e.what();
+        qDebug() << e.what();
+        windowsWarnDialogue(L"Invalid Student ID");
         return "";
     }
 }
@@ -127,12 +133,22 @@ uint16_t getStudentId(const std::string& name) {
     try {
         return toiletList.getIdFromStudent(name);
     } catch (const invalid_argument& e) {
-        qDebug() << "Student not found " << e.what();
+        qDebug() << e.what();
+        windowsWarnDialogue(L"Invalid Student name");
         return 65535;
     }
 }
 
 QString jsonToString(const json& jsonObj) {
     return QString::fromStdString(jsonObj.dump());
+}
+
+void windowsWarnDialogue(const wstring& errorMessage) {
+    MessageBox(
+        nullptr,
+        errorMessage.c_str(),
+        L"An error occurred!",
+        MB_ICONERROR | MB_OK
+    );
 }
 
