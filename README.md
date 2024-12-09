@@ -10,3 +10,12 @@
 
 ## WIP features
 - web interface to control the lists and allow self-service for students
+
+***
+## How to use
+1. start the *info-toiletlist.exe* program
+   2. You can specify a path to a csv file as an argument, otherwise the default is ".\kloliste.csv"
+3. Enter a name or subject into one of the text boxes and press the button below that text box
+4. If you request status information, it will be shown above the text boxes
+5. The color of the subject labels indicate the availability of the toilet in that subject
+   6. Red -> unavailable, Green -> available

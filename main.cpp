@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
     vector<Student> students;
 
     if (argc < 2) {
-        qDebug() << "No file path provided. Using default ./kloliste.csv";
+        qDebug() << "No file path provided. Using default .\\kloliste.csv";
         students = FileLoader::loadFile("kloliste.csv");
     } else {
         students = FileLoader::loadFile(argv[1]);
