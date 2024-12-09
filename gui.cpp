@@ -26,6 +26,57 @@ textFieldQueue(this),
 {
     ui->setupUi(this);
 
+    // button min
+    uint8_t buttonHightMin = 20;
+    uint8_t buttonWidthMin = 20;
+
+    // text field min
+    uint8_t textFieldHightMin = 20;
+    uint8_t textFieldWidthMin = 20;
+
+    // button max
+    uint8_t buttonHightMax = 50;
+    uint8_t buttonWidthMax = 200;
+
+    // text field max
+    uint8_t textFieldHightMax = 40;
+    uint8_t textFieldWidthMax = 200;
+
+    // set button size limits
+    buttonQueue.setMinimumSize(buttonWidthMin, buttonHightMin);
+    buttonQueue.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+
+    buttonReturn.setMinimumSize(buttonWidthMin, buttonHightMin);
+    buttonReturn.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    buttonSubjectStatus.setMinimumSize(buttonWidthMin, buttonHightMin);
+    buttonSubjectStatus.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    buttonStudentStatus.setMinimumSize(buttonWidthMin, buttonHightMin);
+    buttonStudentStatus.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    // set text field size limits
+    textFieldQueue.setMinimumSize(textFieldWidthMin, textFieldHightMin);
+    textFieldQueue.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    textFieldReturn.setMinimumSize(textFieldWidthMin, textFieldHightMin);
+    textFieldReturn.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    textFieldSubjectStatus.setMinimumSize(textFieldWidthMin, textFieldHightMin);
+    textFieldSubjectStatus.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+    textFieldStudentStatus.setMinimumSize(textFieldWidthMin, textFieldHightMin);
+    textFieldStudentStatus.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     // Create top layout for input fields and buttons
     auto *inputLayout = new QHBoxLayout;
     inputLayout->addWidget(&textFieldQueue);
@@ -80,6 +131,8 @@ void gui::createSubjectLabels() {
         label->setPalette(palette);
         label->setAutoFillBackground(true);
         label->setStyleSheet("QLabel { font-size: 20px; color: black; }");
+        label->setMinimumSize(100, 50);
+        label->setMaximumSize(200, 90);
         subjectLayout->addWidget(label);
         subjectLabels[it.key()] = label;
     }
