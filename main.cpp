@@ -18,13 +18,15 @@ ToiletList toiletList{};
 
 int main(int argc, char *argv[]) {
     qDebug() << "Main started";
+    vector<Student> students;
 
     if (argc < 2) {
-        qDebug() << "Error: No file path provided.";
-        return -1;
+        qDebug() << "No file path provided. Using default ./kloliste.csv";
+        students = FileLoader::loadFile("kloliste.csv");
+    } else {
+        students = FileLoader::loadFile(argv[1]);
     }
 
-    const vector<Student> students = FileLoader::loadFile(argv[1]);
     const vector<string> subjects = FileLoader::getSubjects(students);
 
     toiletList.init(students, subjects);
