@@ -17,5 +17,6 @@ QString jsonToString(const nlohmann::json& jsonObj);
 std::vector<QString> jsonStudentStatusToString(const nlohmann::json& jsonObj);
 std::vector<QString> jsonSubjectStatusToString(const nlohmann::json& jsonObj);
 std::vector<std::string> getSubjects();
+bool getSubjectAvailability(const std::string& subject);
 
 #endif //MAIN_H

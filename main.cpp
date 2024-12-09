@@ -183,7 +183,10 @@ void windowsWarnDialogue(const wstring& errorMessage) {
     );
 }
 
-std::vector<std::string> getSubjects() {
+vector<string> getSubjects() {
     return subjects;
 }
 
+bool getSubjectAvailability(const string& subject) {
+    return toiletList.checkToiletAvailability(subject);
+}

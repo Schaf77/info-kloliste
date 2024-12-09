@@ -59,7 +59,7 @@ textFieldQueue(this),
 void gui::createSubjectLabels() {
     subjectLayout = new QHBoxLayout;
 
-    vector<string> subjectsImport = getSubjects();
+    subjectsImport = getSubjects();
 
     QMap<QString, QString> subjects;
     for (const string& subject : subjectsImport) {
@@ -85,20 +85,49 @@ void gui::createSubjectLabels() {
     }
 }
 
+void gui::updateSubjectLabels() {
+    for (const string& subject : subjectsImport) {
+        if (getSubjectAvailability(subject)) {
+            // get subject label
+            QLabel* label = subjectLabels[QString::fromStdString(subject)];
+
+            // update label color
+            QPalette palette = label->palette();
+            palette.setColor(QPalette::Window, Qt::green);
+            label->setPalette(palette);
+
+            // redraw label
+            label->update();
+        } else {
+            // get subject label
+            QLabel* label = subjectLabels[QString::fromStdString(subject)];
+
+            // update label color
+            QPalette palette = label->palette();
+            palette.setColor(QPalette::Window, Qt::red);
+            label->setPalette(palette);
+
+            // redraw label
+            label->update();
+        }
+    }
+}
 
 
-void gui::handleQueueButton() const {
+void gui::handleQueueButton() {
     // Convert the result of toInt() to uint16_t
     const string name = textFieldQueue.text().toStdString();
     const uint16_t id = getStudentId(name);
     queueStudent(id);
+    updateSubjectLabels();
 }
 
-void gui::handleReturnButton() const {
+void gui::handleReturnButton() {
     // Convert the result of toInt() to uint16_t
     const string name = textFieldReturn.text().toStdString();
     const uint16_t id = getStudentId(name);
     returnStudent(id);
+    updateSubjectLabels();
 }
 
 void gui::handleSubjectStatusButton() {

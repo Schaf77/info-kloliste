@@ -31,9 +31,11 @@ private:
     QHBoxLayout *subjectLayout;
     QMap<QString, QLabel*> subjectLabels;
     void createSubjectLabels();
+    void updateSubjectLabels();
+    std::vector<std::string> subjectsImport;
 private slots:
-    void handleQueueButton() const;
-    void handleReturnButton() const;
+    void handleQueueButton();
+    void handleReturnButton();
     void handleSubjectStatusButton();
     void handleStudentStatusButton();
     void updateLastOutputLabel(const QString &text);
