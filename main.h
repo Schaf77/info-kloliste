@@ -14,5 +14,7 @@ QString subjectStatus(const std::string& subject);
 QString studentStatus(const uint16_t& student);
 uint16_t getStudentId(const std::string& name);
 QString jsonToString(const nlohmann::json& jsonObj);
+std::vector<QString> jsonStudentStatusToString(const nlohmann::json& jsonObj);
+std::vector<QString> jsonSubjectStatusToString(const nlohmann::json& jsonObj);
 
 #endif //MAIN_H

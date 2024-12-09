@@ -21,8 +21,10 @@ public:
     ToiletList();
     void init(vector<Student> students, const vector<string>& subjects);
     bool checkToiletAvailability(const string& subject);
-    [[nodiscard]] json getStudentStatus(uint16_t id) const;
-    [[nodiscard]] json getToiletStatus(string subject);
+    [[nodiscard]] json getStudentStatus(const uint16_t &id) const;
+    [[nodiscard]] json getToiletStatus(const string& subject);
+    [[nodiscard]] string getStudentStatusString(const uint16_t& id) const;
+    [[nodiscard]] string getSubjectStatusString(const string& subject);
     void queueStudent(uint16_t id);
     void returnStudent(uint16_t id);
     void updateStudentToiletStatus(uint16_t id, bool isOnToilet);

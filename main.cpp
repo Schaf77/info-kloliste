@@ -19,7 +19,12 @@ ToiletList toiletList{};
 int main(int argc, char *argv[]) {
     qDebug() << "Main started";
 
-    const vector<Student> students = FileLoader::loadFile(R"(C:\Users\Oskar\CLionProjects\info-kloliste\kloliste-beispiel.csv)");
+    if (argc < 2) {
+        qDebug() << "Error: No file path provided.";
+        return -1;
+    }
+
+    const vector<Student> students = FileLoader::loadFile(argv[1]);
     const vector<string> subjects = FileLoader::getSubjects(students);
 
     toiletList.init(students, subjects);
@@ -111,7 +116,8 @@ void returnStudent(const uint16_t& id) {
 
 QString subjectStatus(const std::string& subject) {
     try {
-        return jsonToString(toiletList.getToiletStatus(subject));
+        // return jsonToString(toiletList.getToiletStatus(subject));
+        return QString::fromStdString(toiletList.getSubjectStatusString(subject));
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid  Subject");
@@ -121,7 +127,8 @@ QString subjectStatus(const std::string& subject) {
 
 QString studentStatus(const uint16_t& student) {
     try {
-        return jsonToString(toiletList.getStudentStatus(student));
+        // return jsonToString(toiletList.getStudentStatus(student));
+        return QString::fromStdString(toiletList.getStudentStatusString(student));
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid Student ID");
@@ -141,6 +148,27 @@ uint16_t getStudentId(const std::string& name) {
 
 QString jsonToString(const json& jsonObj) {
     return QString::fromStdString(jsonObj.dump());
+}
+
+vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
+    // convert json to vector
+    vector<QString> studentStatus;
+    studentStatus.push_back(QString::fromStdString(jsonObj.at("name")));
+    studentStatus.push_back(QString::fromStdString(jsonObj.at("subject")));
+    studentStatus.push_back(QString::fromStdString(jsonObj.at("isQueued")));
+    studentStatus.push_back(QString::fromStdString(jsonObj.at("isOnToilet")));
+
+    return studentStatus;
+}
+
+vector<QString> jsonSubjectStatusToString(const nlohmann::json &jsonObj) {
+    // convert json to vector
+    vector<QString> subjectStatus;
+    subjectStatus.push_back(QString::fromStdString(jsonObj.at("subject")));
+    subjectStatus.push_back(QString::fromStdString(jsonObj.at("availability")));
+    subjectStatus.push_back(QString::fromStdString(jsonObj.at("queueLength")));
+
+    return subjectStatus;
 }
 
 void windowsWarnDialogue(const wstring& errorMessage) {
