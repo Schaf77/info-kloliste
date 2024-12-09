@@ -10,4 +10,3 @@
 
 ## WIP features
 - web interface to control the lists and allow self-service for students
-- __error handling__
