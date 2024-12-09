@@ -10,7 +10,6 @@
 #include <QLabel>
 #include <QMap>
 #include <QString>
-#include <QHBoxLayout>
 #include <QVBoxLayout>
 
 
