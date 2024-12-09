@@ -27,54 +27,54 @@ textFieldQueue(this),
     ui->setupUi(this);
 
     // button min
-    uint8_t buttonHightMin = 20;
-    uint8_t buttonWidthMin = 20;
+    constexpr uint8_t BUTTON_HIGHT_MIN = 20;
+    constexpr uint8_t BUTTON_WIDTH_MIN = 20;
 
     // text field min
-    uint8_t textFieldHightMin = 20;
-    uint8_t textFieldWidthMin = 20;
+    constexpr uint8_t TEXT_FIELD_HIGHT_MIN = 20;
+    constexpr uint8_t TEXT_FIELD_WIDTH_MIN = 20;
 
     // button max
-    uint8_t buttonHightMax = 50;
-    uint8_t buttonWidthMax = 200;
+    constexpr uint8_t BUTTON_HEIGHT_MAX = 50;
+    constexpr uint8_t BUTTON_WIDTH_MAX = 200;
 
     // text field max
-    uint8_t textFieldHightMax = 40;
-    uint8_t textFieldWidthMax = 200;
+    constexpr uint8_t TEXT_FIELD_HIGHT_MAX = 40;
+    constexpr uint8_t TEXT_FIELD_WIDTH_MAX = 200;
 
     // set button size limits
-    buttonQueue.setMinimumSize(buttonWidthMin, buttonHightMin);
-    buttonQueue.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonQueue.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HIGHT_MIN);
+    buttonQueue.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
     buttonQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 
-    buttonReturn.setMinimumSize(buttonWidthMin, buttonHightMin);
-    buttonReturn.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonReturn.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HIGHT_MIN);
+    buttonReturn.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
     buttonReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    buttonSubjectStatus.setMinimumSize(buttonWidthMin, buttonHightMin);
-    buttonSubjectStatus.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonSubjectStatus.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HIGHT_MIN);
+    buttonSubjectStatus.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
     buttonSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    buttonStudentStatus.setMinimumSize(buttonWidthMin, buttonHightMin);
-    buttonStudentStatus.setMaximumSize(buttonWidthMax, buttonHightMax);
+    buttonStudentStatus.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HIGHT_MIN);
+    buttonStudentStatus.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
     buttonStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // set text field size limits
-    textFieldQueue.setMinimumSize(textFieldWidthMin, textFieldHightMin);
-    textFieldQueue.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldQueue.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HIGHT_MIN);
+    textFieldQueue.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HIGHT_MAX);
     textFieldQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    textFieldReturn.setMinimumSize(textFieldWidthMin, textFieldHightMin);
-    textFieldReturn.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldReturn.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HIGHT_MIN);
+    textFieldReturn.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HIGHT_MAX);
     textFieldReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    textFieldSubjectStatus.setMinimumSize(textFieldWidthMin, textFieldHightMin);
-    textFieldSubjectStatus.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldSubjectStatus.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HIGHT_MIN);
+    textFieldSubjectStatus.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HIGHT_MAX);
     textFieldSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
-    textFieldStudentStatus.setMinimumSize(textFieldWidthMin, textFieldHightMin);
-    textFieldStudentStatus.setMaximumSize(textFieldWidthMax, textFieldHightMax);
+    textFieldStudentStatus.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HIGHT_MIN);
+    textFieldStudentStatus.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HIGHT_MAX);
     textFieldStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Create top layout for input fields and buttons
