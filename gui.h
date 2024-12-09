@@ -8,6 +8,10 @@
 #include <QLineEdit>
 #include <QPushButton>
 #include <QLabel>
+#include <QMap>
+#include <QString>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 
 QT_BEGIN_NAMESPACE
@@ -25,6 +29,9 @@ private:
     QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonStudentStatus;
     QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldStudentStatus;
     QLabel labelLastOutput;
+QVBoxLayout *subjectLayout;
+    QMap<QString, QLabel*> subjectLabels;
+    void createSubjectLabels();
 private slots:
     void handleQueueButton() const;
     void handleReturnButton() const;

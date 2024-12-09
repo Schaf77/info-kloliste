@@ -8,43 +8,83 @@
 #include "ui_gui.h"
 #include "main.h"
 #include <QLineEdit>
+#include <QPalette>
 
 using namespace std;
 
 gui::gui(QWidget *parent)
-    : QWidget(parent), buttonQueue("Queue", this), textFieldQueue(this),
-    buttonReturn("Return", this), textFieldReturn(this),
-    buttonSubjectStatus ("Subject Status", this), textFieldSubjectStatus(this),
-    buttonStudentStatus ("Student Status", this), textFieldStudentStatus(this),
-    labelLastOutput(this)
+    : QWidget(parent),
+      buttonQueue("Queue", this),
+textFieldQueue(this),
+      buttonReturn("Return", this),
+      textFieldReturn(this),
+      buttonSubjectStatus("Subject Status", this),
+      textFieldSubjectStatus(this),
+      buttonStudentStatus("Student Status", this),
+      textFieldStudentStatus(this),
+      labelLastOutput(this)
 {
-
     ui->setupUi(this);
-    // set size and location of the buttons
-    buttonQueue.setGeometry(QRect(QPoint(100, 90), QSize(200, 50)));
-    buttonReturn.setGeometry(QRect(QPoint(310, 90), QSize(200, 50)));
-    buttonSubjectStatus.setGeometry(QRect(QPoint(520, 90), QSize(200, 50)));
-    buttonStudentStatus.setGeometry(QRect(QPoint(730, 90), QSize(200, 50)));
 
-    // Set size and location of the text fields
-    textFieldQueue.setGeometry(QRect(QPoint(100, 50), QSize(200, 30)));
-    textFieldReturn.setGeometry(QRect(QPoint(310, 50), QSize(200, 30)));
-    textFieldSubjectStatus.setGeometry(QRect(QPoint(520, 50), QSize(200, 30)));
-    textFieldStudentStatus.setGeometry(QRect(QPoint(730, 50), QSize(200, 30)));
+    // Create top layout for input fields and buttons
+    auto *inputLayout = new QHBoxLayout;
+    inputLayout->addWidget(&textFieldQueue);
+    inputLayout->addWidget(&textFieldReturn);
+    inputLayout->addWidget(&textFieldSubjectStatus);
+    inputLayout->addWidget(&textFieldStudentStatus);
 
-    // set size and location of labels
-    labelLastOutput.setGeometry(QRect(QPoint(000, 0), QSize(1000, 50)));
-    labelLastOutput.setText("Last Output Label");
-    labelLastOutput.setAlignment(Qt::AlignCenter);
+    auto *buttonLayout = new QHBoxLayout;
+    buttonLayout->addWidget(&buttonQueue);
+    buttonLayout->addWidget(&buttonReturn);
+    buttonLayout->addWidget(&buttonSubjectStatus);
+    buttonLayout->addWidget(&buttonStudentStatus);
 
-    // Connect button signal to appropriate slot
+    // Main layout
+    auto *mainLayout = new QVBoxLayout(this);
+    mainLayout->addWidget(&labelLastOutput);
+    mainLayout->addLayout(inputLayout);
+    mainLayout->addLayout(buttonLayout);
+
+    createSubjectLabels(); // sets up subjectLayout
+    mainLayout->addLayout(subjectLayout);
+
+    // Connect signals
     connect(&buttonQueue, &QPushButton::released, this, &gui::handleQueueButton);
     connect(&buttonReturn, &QPushButton::released, this, &gui::handleReturnButton);
     connect(&buttonSubjectStatus, &QPushButton::released, this, &gui::handleSubjectStatusButton);
     connect(&buttonStudentStatus, &QPushButton::released, this, &gui::handleStudentStatusButton);
-
-    //buttonQueue.setStyleSheet("background-color: white; color: black;");
 }
+
+
+void gui::createSubjectLabels() {
+    subjectLayout = new QVBoxLayout;
+
+    QMap<QString, QString> subjects;
+    subjects.insert("Math", "complete");
+    subjects.insert("Science", "in progress");
+    subjects.insert("History", "not started");
+
+    for (auto it = subjects.cbegin(); it != subjects.cend(); ++it) {
+        auto *label = new QLabel(it.key());
+        label->setAlignment(Qt::AlignCenter);
+        QPalette palette = label->palette();
+
+        if (it.value() == "complete") {
+            palette.setColor(QPalette::Window, Qt::green);
+        } else if (it.value() == "in progress") {
+            palette.setColor(QPalette::Window, Qt::yellow);
+        } else {
+            palette.setColor(QPalette::Window, Qt::red);
+        }
+
+        label->setPalette(palette);
+        label->setAutoFillBackground(true);
+        subjectLayout->addWidget(label);
+        subjectLabels[it.key()] = label;
+    }
+}
+
+
 
 void gui::handleQueueButton() const {
     // Convert the result of toInt() to uint16_t
@@ -77,4 +117,5 @@ void gui::updateLastOutputLabel(const QString& text) {
 
 gui::~gui() {
     delete ui;
+    delete subjectLayout;
 }

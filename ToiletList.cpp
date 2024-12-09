@@ -6,6 +6,7 @@
 #include <utility>
 #include <algorithm>
 #include <iostream>
+#include <format>
 #include "ToiletList.h"
 #include "json.hpp"
 
@@ -51,7 +52,7 @@ uint16_t ToiletList::getIdFromStudent(const string& name) {
 }
 
 
-json ToiletList::getStudentStatus(const uint16_t id) const {
+json ToiletList::getStudentStatus(const uint16_t& id) const {
     try {
         Student student = students.at(id);
 
@@ -68,7 +69,7 @@ json ToiletList::getStudentStatus(const uint16_t id) const {
     }
 }
 
-json ToiletList::getToiletStatus(string subject) {
+json ToiletList::getToiletStatus(const string& subject) {
     if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
 
     json output = {
@@ -76,6 +77,33 @@ json ToiletList::getToiletStatus(string subject) {
         {"availability", checkToiletAvailability(subject)},
         {"queueLength", toiletQueueMap[subject].size()}
     };
+
+    return output;
+}
+
+string ToiletList::getStudentStatusString(const uint16_t& id) const {
+    try {
+        Student student = students.at(id);
+
+        string output = format("Name: {}, Subject: {}, is queued: {}, is on toilet: {}",
+            student.getName(),
+            student.getSubject(),
+            student.getQueuedState(),
+            student.getToiletState());
+
+        return output;
+    } catch (out_of_range& e) {
+        throw invalid_argument("Student not found");
+    }
+}
+
+string ToiletList::getSubjectStatusString(const string& subject) {
+    if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
+
+    string output = format("Subject: {}. Availability: {}. Queue length: {}",
+        subject,
+        checkToiletAvailability(subject),
+        toiletQueueMap[subject].size());
 
     return output;
 }
