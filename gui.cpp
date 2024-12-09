@@ -57,28 +57,29 @@ textFieldQueue(this),
 
 
 void gui::createSubjectLabels() {
-    subjectLayout = new QVBoxLayout;
+    subjectLayout = new QHBoxLayout;
+
+    vector<string> subjectsImport = getSubjects();
 
     QMap<QString, QString> subjects;
-    subjects.insert("Math", "complete");
-    subjects.insert("Science", "in progress");
-    subjects.insert("History", "not started");
+    for (const string& subject : subjectsImport) {
+        subjects.insert(QString::fromStdString(subject), "free");
+    }
 
     for (auto it = subjects.cbegin(); it != subjects.cend(); ++it) {
         auto *label = new QLabel(it.key());
         label->setAlignment(Qt::AlignCenter);
         QPalette palette = label->palette();
 
-        if (it.value() == "complete") {
+        if (it.value() == "free") {
             palette.setColor(QPalette::Window, Qt::green);
-        } else if (it.value() == "in progress") {
-            palette.setColor(QPalette::Window, Qt::yellow);
         } else {
             palette.setColor(QPalette::Window, Qt::red);
         }
 
         label->setPalette(palette);
         label->setAutoFillBackground(true);
+        label->setStyleSheet("QLabel { font-size: 20px; color: black; }");
         subjectLayout->addWidget(label);
         subjectLabels[it.key()] = label;
     }

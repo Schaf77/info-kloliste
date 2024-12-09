@@ -13,6 +13,7 @@ using namespace std;
 
 void terminalInterface(ToiletList toiletList, const vector<string>& subjects);
 void windowsWarnDialogue(const wstring& errorMessage);
+vector<string> subjects;
 
 ToiletList toiletList{};
 
@@ -27,7 +28,7 @@ int main(int argc, char *argv[]) {
         students = FileLoader::loadFile(argv[1]);
     }
 
-    const vector<string> subjects = FileLoader::getSubjects(students);
+    subjects = FileLoader::getSubjects(students);
 
     toiletList.init(students, subjects);
     //terminalInterface(toiletList, subjects);
@@ -181,3 +182,8 @@ void windowsWarnDialogue(const wstring& errorMessage) {
         MB_ICONERROR | MB_OK
     );
 }
+
+std::vector<std::string> getSubjects() {
+    return subjects;
+}
+

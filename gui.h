@@ -28,7 +28,7 @@ private:
     QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonStudentStatus;
     QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldStudentStatus;
     QLabel labelLastOutput;
-QVBoxLayout *subjectLayout;
+    QHBoxLayout *subjectLayout;
     QMap<QString, QLabel*> subjectLabels;
     void createSubjectLabels();
 private slots:
