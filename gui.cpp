@@ -117,21 +117,17 @@ void gui::createSubjectLabels() {
 
     subjectsImport = getSubjects();
 
-    QMap<QString, QString> subjects;
+    QVector<QString> subjects;
     for (const string& subject : subjectsImport) {
-        subjects.insert(QString::fromStdString(subject), "free");
+        subjects.push_back(QString::fromStdString(subject));
     }
 
-    for (auto it = subjects.cbegin(); it != subjects.cend(); ++it) {
-        auto *label = new QLabel(it.key());
+    for (QString subject : subjects) {
+        auto *label = new QLabel(subject);
         label->setAlignment(Qt::AlignCenter);
         QPalette palette = label->palette();
 
-        if (it.value() == "free") {
-            palette.setColor(QPalette::Window, Qt::green);
-        } else {
-            palette.setColor(QPalette::Window, Qt::red);
-        }
+        palette.setColor(QPalette::Window, Qt::green);
 
         label->setPalette(palette);
         label->setAutoFillBackground(true);
@@ -139,7 +135,7 @@ void gui::createSubjectLabels() {
         label->setMinimumSize(100, 50);
         label->setMaximumSize(200, 90);
         subjectLayout->addWidget(label);
-        subjectLabels[it.key()] = label;
+        subjectLabels[subject] = label;
     }
 }
 

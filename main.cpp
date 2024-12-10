@@ -149,9 +149,9 @@ uint16_t getStudentId(const std::string& name) {
     }
 }
 
-QString jsonToString(const json& jsonObj) {
-    return QString::fromStdString(jsonObj.dump());
-}
+// QString jsonToString(const json& jsonObj) {
+//     return QString::fromStdString(jsonObj.dump());
+// }
 
 vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
     // convert json to vector
