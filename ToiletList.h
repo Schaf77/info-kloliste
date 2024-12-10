@@ -19,16 +19,16 @@ using namespace std;
 class ToiletList {
 public:
     ToiletList();
-    void init(vector<Student> students, const vector<string>& subjects);
+    void init(const vector<Student>& students, const vector<string>& subjects);
     bool checkToiletAvailability(const string& subject);
-    [[nodiscard]] json getStudentStatus(const uint16_t &id) const;
+    [[nodiscard]] json getStudentStatus(const uint16_t &id);
     [[nodiscard]] json getToiletStatus(const string& subject);
-    [[nodiscard]] string getStudentStatusString(const uint16_t& id) const;
+    [[nodiscard]] string getStudentStatusString(const uint16_t& id);
     [[nodiscard]] string getSubjectStatusString(const string& subject);
-    void queueStudent(uint16_t id);
-    void returnStudent(uint16_t id);
-    void updateStudentToiletStatus(uint16_t id, bool isOnToilet);
-    void updateStudentQueueStatus(uint16_t id, bool isQueued);
+    void queueStudent(const uint16_t& id);
+    void returnStudent(const uint16_t& id);
+    void updateStudentToiletStatus(const uint16_t& id, const bool& isOnToilet);
+    void updateStudentQueueStatus(const uint16_t& id, const bool& isQueued);
     [[nodiscard]] uint16_t getIdFromStudent(const string& name);
     Student* getStudentOnToilet(const string& subject);
 private:

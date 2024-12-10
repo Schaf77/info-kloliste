@@ -14,10 +14,10 @@ using json = nlohmann::json;
 
 ToiletList::ToiletList() = default;
 
-void ToiletList::init(vector<Student> students, const vector<string> &subjects) {
+void ToiletList::init(const vector<Student>& students, const vector<string>& subjects) {
     // transfer ownership of students and subjects vector
-    this->students = move(students);
-    this->subjects = move(subjects);
+    this->students = students;
+    this->subjects = subjects;
 
     // create a queue for each subject
     for (const string& subject : subjects) {
@@ -27,23 +27,22 @@ void ToiletList::init(vector<Student> students, const vector<string> &subjects) 
 
 // returns true if toilet is available for subject
 bool ToiletList::checkToiletAvailability(const string& subject) {
-    for (Student student : this->students) {
-        if (student.getSubject() == subject && student.getToiletState())
-            return false;
+    for (Student& student : this->students) {
+        if (student.getSubject() == subject && student.getToiletState()) return false;
     }
     return true;
 }
 
-void ToiletList::updateStudentToiletStatus(const uint16_t id, const bool isOnToilet) {
+void ToiletList::updateStudentToiletStatus(const uint16_t& id, const bool& isOnToilet) {
     students.at(id).setToiletState(isOnToilet);
 }
 
-void ToiletList::updateStudentQueueStatus(const uint16_t id, bool isQueued) {
+void ToiletList::updateStudentQueueStatus(const uint16_t& id, const bool& isQueued) {
     students.at(id).setQueuedState(isQueued);
 }
 
 uint16_t ToiletList::getIdFromStudent(const string& name) {
-    for (Student student : this->students) {
+    for (Student& student : this->students) {
         if (student.getName() == name) {
             return student.getId();
         }
@@ -61,9 +60,9 @@ Student* ToiletList::getStudentOnToilet(const string& subject) {
 }
 
 
-json ToiletList::getStudentStatus(const uint16_t& id) const {
+json ToiletList::getStudentStatus(const uint16_t& id) {
     try {
-        Student student = students.at(id);
+        Student& student = students.at(id);
 
         json output = {
             {"name", student.getName()},
@@ -90,9 +89,9 @@ json ToiletList::getToiletStatus(const string& subject) {
     return output;
 }
 
-string ToiletList::getStudentStatusString(const uint16_t& id) const {
+string ToiletList::getStudentStatusString(const uint16_t& id) {
     try {
-        Student student = students.at(id);
+        Student& student = students.at(id);
 
         string output = format("Name: {}, Subject: {}, is queued: {}, is on toilet: {}",
             student.getName(),
@@ -118,22 +117,22 @@ string ToiletList::getSubjectStatusString(const string& subject) {
 }
 
 
-void ToiletList::queueStudent(const uint16_t id) {
+void ToiletList::queueStudent(const uint16_t& id) {
     try {
         // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
-        Student *pStudent = &(students.at(id));
-        const string subject = pStudent->getSubject();
+        Student& pStudent = students.at(id);
+        const string subject = pStudent.getSubject();
 
         // check if student is already queued or on the toilet
-        if (pStudent->getQueuedState() || pStudent->getToiletState()) return;
+        if (pStudent.getQueuedState() || pStudent.getToiletState()) return;
 
         // send the student to the toilet, if it's available
         if (checkToiletAvailability(subject)) {
             updateStudentToiletStatus(id, true);
         } else {
             // otherwise queue the student in his subject's queue
-            toiletQueueMap[subject].push(*pStudent);
-            pStudent->setQueuedState(true);
+            toiletQueueMap[subject].push(pStudent);
+            pStudent.setQueuedState(true);
         }
     } catch (const out_of_range& oor) {
         cerr << "Out of Range error: " << oor.what() << endl;
@@ -142,14 +141,14 @@ void ToiletList::queueStudent(const uint16_t id) {
 }
 
 
-void ToiletList::returnStudent(const uint16_t id) {
+void ToiletList::returnStudent(const uint16_t& id) {
     try {
         // set variables for increased readability
-        Student* student = &students.at(id);
-        const string subject = student->getSubject();
+        Student& student = students.at(id);
+        const string& subject = student.getSubject();
 
         // only proceed if student is on the toilet
-        if (student->getToiletState() == false) return;
+        if (student.getToiletState() == false) return;
 
         // remove returned student from the toilet
         updateStudentToiletStatus(id, false);
@@ -157,7 +156,7 @@ void ToiletList::returnStudent(const uint16_t id) {
         // only send the next student from the queue if the queue isn't empty
         if (!toiletQueueMap[subject].empty()) {
             // get the next student in line
-            Student& pNextStudent = toiletQueueMap[subject].front();
+            const Student& pNextStudent = toiletQueueMap[subject].front();
             // send the student to the toilet
             updateStudentToiletStatus(pNextStudent.getId(), true);
             // remove the student from the queue
