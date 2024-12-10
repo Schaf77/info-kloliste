@@ -15,9 +15,7 @@
 
 using namespace std;
 
-FileLoader::FileLoader() {
-    nextFreeId = 0;
-}
+FileLoader::FileLoader() = default;
 
 vector<Student> FileLoader::loadFile(const string& path) {
     // result map, where the key is the subject  and the element is a vector with all the students
@@ -49,7 +47,7 @@ vector<Student> FileLoader::loadFile(const string& path) {
 }
 
 vector<Student> FileLoader::loadExample() {
-    nextFreeId = 0;
+    uint16_t nextFreeId = 0;
     vector<Student> testStudents;
     Student testStudent01(&nextFreeId, "John", "MA L1");
     Student testStudent02(&nextFreeId, "Jane", "GE G1");
@@ -80,11 +78,11 @@ vector<Student> FileLoader::loadExample() {
     return testStudents;
 }
 
-vector<string> FileLoader::getSubjects(const vector<Student> &students) {
+vector<string> FileLoader::getSubjects(const vector<Student>& students) {
     vector<string> subjects;
 
     for (Student student : students) {
-        string subject = student.getSubject();
+        const string subject = student.getSubject();
         if (ranges::find(subjects, subject) == subjects.end()) {
             subjects.push_back(subject);
         }
