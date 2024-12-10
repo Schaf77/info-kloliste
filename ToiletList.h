@@ -4,6 +4,7 @@
 
 #ifndef TOILETLIST_H
 #define TOILETLIST_H
+
 #include <queue>
 #include <vector>
 #include <string>
@@ -36,6 +37,5 @@ private:
     vector<Student> students;
     vector<string> subjects;
 };
-
 
 #endif //TOILETLIST_H

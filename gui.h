@@ -42,5 +42,4 @@ private slots:
     void updateLastOutputLabel(const QString &text);
 };
 
-
 #endif //GUI_H

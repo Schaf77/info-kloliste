@@ -7,6 +7,7 @@
 #include "gui.h"
 #include "ui_gui.h"
 #include "main.h"
+
 #include <QLineEdit>
 #include <QPalette>
 
@@ -14,68 +15,49 @@ using namespace std;
 
 gui::gui(QWidget *parent)
     : QWidget(parent),
-      buttonQueue("Queue", this),
-textFieldQueue(this),
-      buttonReturn("Return", this),
-      textFieldReturn(this),
-      buttonSubjectStatus("Subject Status", this),
-      textFieldSubjectStatus(this),
-      buttonStudentStatus("Student Status", this),
-      textFieldStudentStatus(this),
-      labelLastOutput(this)
+    buttonQueue("Queue", this),
+    textFieldQueue(this),
+    buttonReturn("Return", this),
+    textFieldReturn(this),
+    buttonSubjectStatus("Subject Status", this),
+    textFieldSubjectStatus(this),
+    buttonStudentStatus("Student Status", this),
+    textFieldStudentStatus(this),
+    labelLastOutput(this)
 {
     ui->setupUi(this);
 
-    // button min
-    constexpr uint8_t BUTTON_HEIGHT_MIN = 20;
-    constexpr uint8_t BUTTON_WIDTH_MIN = 20;
-
-    // text field min
-    constexpr uint8_t TEXT_FIELD_HEIGHT_MIN = 20;
-    constexpr uint8_t TEXT_FIELD_WIDTH_MIN = 20;
-
-    // button max
-    constexpr uint8_t BUTTON_HEIGHT_MAX = 50;
-    constexpr uint8_t BUTTON_WIDTH_MAX = 200;
-
-    // text field max
-    constexpr uint8_t TEXT_FIELD_HEIGHT_MAX = 40;
-    constexpr uint8_t TEXT_FIELD_WIDTH_MAX = 200;
+    // set values for button and text field sizes
+    constexpr uint8_t BUTTON_HEIGHT_MIN = 20, BUTTON_WIDTH_MIN = 20;
+    constexpr uint8_t BUTTON_HEIGHT_MAX = 50, BUTTON_WIDTH_MAX = 200;
+    constexpr uint8_t TEXT_FIELD_HEIGHT_MIN = 20, TEXT_FIELD_WIDTH_MIN = 20;
+    constexpr uint8_t TEXT_FIELD_HEIGHT_MAX = 40, TEXT_FIELD_WIDTH_MAX = 200;
 
     // set button size limits
-    buttonQueue.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HEIGHT_MIN);
-    buttonQueue.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
-    buttonQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QVector<QPushButton*> buttons;
+    buttons.push_back(&buttonQueue);
+    buttons.push_back(&buttonReturn);
+    buttons.push_back(&buttonSubjectStatus);
+    buttons.push_back(&buttonStudentStatus);
 
-
-    buttonReturn.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HEIGHT_MIN);
-    buttonReturn.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
-    buttonReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    buttonSubjectStatus.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HEIGHT_MIN);
-    buttonSubjectStatus.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
-    buttonSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    buttonStudentStatus.setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HEIGHT_MIN);
-    buttonStudentStatus.setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
-    buttonStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    for (QPushButton* pButton : buttons) {
+        pButton->setMinimumSize(BUTTON_WIDTH_MIN, BUTTON_HEIGHT_MIN);
+        pButton->setMaximumSize(BUTTON_WIDTH_MAX, BUTTON_HEIGHT_MAX);
+        pButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    }
 
     // set text field size limits
-    textFieldQueue.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
-    textFieldQueue.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
-    textFieldQueue.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QVector<QLineEdit*> textFields;
+    textFields.push_back(&textFieldQueue);
+    textFields.push_back(&textFieldReturn);
+    textFields.push_back(&textFieldSubjectStatus);
+    textFields.push_back(&textFieldStudentStatus);
 
-    textFieldReturn.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
-    textFieldReturn.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
-    textFieldReturn.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    textFieldSubjectStatus.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
-    textFieldSubjectStatus.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
-    textFieldSubjectStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-    textFieldStudentStatus.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
-    textFieldStudentStatus.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
-    textFieldStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    for (QLineEdit* pTextField : textFields) {
+        pTextField->setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
+        pTextField->setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
+        pTextField->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+    }
 
     // set label size and limits
     labelLastOutput.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);

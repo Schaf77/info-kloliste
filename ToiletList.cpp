@@ -3,14 +3,13 @@
 //
 
 #include <string>
-#include <utility>
 #include <algorithm>
 #include <iostream>
 #include <format>
+
 #include "ToiletList.h"
 #include "json.hpp"
 
-using json = nlohmann::json;
 
 ToiletList::ToiletList() = default;
 
@@ -59,12 +58,11 @@ Student* ToiletList::getStudentOnToilet(const string& subject) {
     return nullptr;
 }
 
-
-json ToiletList::getStudentStatus(const uint16_t& id) {
+nlohmann::json ToiletList::getStudentStatus(const uint16_t& id) {
     try {
         Student& student = students.at(id);
 
-        json output = {
+        nlohmann::json output = {
             {"name", student.getName()},
             {"subject", student.getSubject()},
             {"isQueued", student.getQueuedState()},
@@ -77,10 +75,10 @@ json ToiletList::getStudentStatus(const uint16_t& id) {
     }
 }
 
-json ToiletList::getToiletStatus(const string& subject) {
+nlohmann::json ToiletList::getToiletStatus(const string& subject) {
     if (ranges::find(subjects, subject) == subjects.end()) throw invalid_argument("Subject not found");
 
-    json output = {
+    nlohmann::json output = {
         {"subject", subject},
         {"availability", checkToiletAvailability(subject)},
         {"queueLength", toiletQueueMap[subject].size()}
@@ -116,7 +114,6 @@ string ToiletList::getSubjectStatusString(const string& subject) {
     return output;
 }
 
-
 void ToiletList::queueStudent(const uint16_t& id) {
     try {
         // fetch the student and catch the out_of_bounds error, if the id parameter is wrong
@@ -139,7 +136,6 @@ void ToiletList::queueStudent(const uint16_t& id) {
         throw invalid_argument("Student not found");
     }
 }
-
 
 void ToiletList::returnStudent(const uint16_t& id) {
     try {

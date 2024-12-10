@@ -2,6 +2,7 @@
 #include <vector>
 #include <QApplication>
 #include <windows.h>
+
 #include "ToiletList.h"
 #include "Student.h"
 #include "FileLoader.h"
@@ -46,7 +47,7 @@ int main(int argc, char *argv[]) {
     return QApplication::exec();
 }
 
-void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
+void terminalInterface(ToiletList& toiletList, const vector<string>& subjects) {
     cout << "Welcome!" << endl;
     while (true) {
         // welcome text
@@ -99,16 +100,13 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
     }
 }
 
-
-// functions for gui
-
 // If the subjects toilet is available, the students gets directly sent to the toilet. Otherwise, the student gets added to the subjects queue
 void queueStudent(const uint16_t& id) {
     try {
         toiletList.queueStudent(id);
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
-        windowsWarnDialogue(L"Invalid Student ID");
+        windowsWarnDialogue(L"Invalid Student name");
     }
 }
 
@@ -118,12 +116,12 @@ void returnStudent(const uint16_t& id) {
         toiletList.returnStudent(id);
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
-        windowsWarnDialogue(L"Invalid Student ID");
+        windowsWarnDialogue(L"Invalid Student name");
     }
 }
 
 // returns the status of a subject in a single string
-QString subjectStatus(const std::string& subject) {
+QString subjectStatus(const string& subject) {
     try {
         // return jsonToString(toiletList.getToiletStatus(subject));
         return QString::fromStdString(toiletList.getSubjectStatusString(subject));
@@ -141,7 +139,7 @@ QString studentStatus(const uint16_t& student) {
         return QString::fromStdString(toiletList.getStudentStatusString(student));
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
-        windowsWarnDialogue(L"Invalid Student ID");
+        windowsWarnDialogue(L"Invalid Student name");
         return "";
     }
 }
@@ -152,47 +150,17 @@ uint16_t getStudentId(const string& name) {
         return toiletList.getIdFromStudent(name);
     } catch (const invalid_argument& e) {
         qDebug() << e.what();
-        windowsWarnDialogue(L"Invalid Student name");
         return 65535;
     }
 }
 
-QString jsonToString(const json& jsonObj) {
-    return QString::fromStdString(jsonObj.dump());
-}
-
-// converts a json student status into a vector<QString> student status
-vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
-    // convert json to vector
-    vector<QString> studentStatus;
-    studentStatus.push_back(QString::fromStdString(jsonObj.at("name")));
-    studentStatus.push_back(QString::fromStdString(jsonObj.at("subject")));
-    studentStatus.push_back(QString::fromStdString(jsonObj.at("isQueued")));
-    studentStatus.push_back(QString::fromStdString(jsonObj.at("isOnToilet")));
-
-    return studentStatus;
-}
-
-// converts a json subject status into a vector<QString> subject status
-vector<QString> jsonSubjectStatusToString(const nlohmann::json &jsonObj) {
-    // convert json to vector
-    vector<QString> subjectStatus;
-    subjectStatus.push_back(QString::fromStdString(jsonObj.at("subject")));
-    subjectStatus.push_back(QString::fromStdString(jsonObj.at("availability")));
-    subjectStatus.push_back(QString::fromStdString(jsonObj.at("queueLength")));
-
-    return subjectStatus;
-}
-
-QString getStudentOnToilet(const string &subject) {
+QString getStudentOnToilet(const string& subject) {
     Student* studentOnToilet = toiletList.getStudentOnToilet(subject);
     if (studentOnToilet == nullptr) {
-        //windowsWarnDialogue(L"No student on that toilet");
         return "";
     }
     return QString::fromStdString(studentOnToilet->getName());
 }
-
 
 // creates a Windows error message
 void windowsWarnDialogue(const wstring& errorMessage) {

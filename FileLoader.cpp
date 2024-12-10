@@ -8,7 +8,7 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#include<regex>
+#include <regex>
 
 #include "FileLoader.h"
 
@@ -46,38 +46,6 @@ vector<Student> FileLoader::loadFile(const string& path) {
     return students;
 }
 
-vector<Student> FileLoader::loadExample() {
-    uint16_t nextFreeId = 0;
-    vector<Student> testStudents;
-    Student testStudent01(nextFreeId, "John", "MA L1");
-    Student testStudent02(nextFreeId, "Jane", "GE G1");
-    Student testStudent03(nextFreeId, "Peter", "SP G1");
-    Student testStudent04(nextFreeId, "Jens", "MA L1");
-    Student testStudent05(nextFreeId, "Klaus", "GE G1");
-    Student testStudent06(nextFreeId, "Klaus", "SP G1");
-    Student testStudent07(nextFreeId, "John", "MA L1");
-    Student testStudent08(nextFreeId, "Jane", "GE G1");
-    Student testStudent09(nextFreeId, "Peter", "SP G1");
-    Student testStudent10(nextFreeId, "Jens", "MA L1");
-    Student testStudent11(nextFreeId, "Klaus", "GE G1");
-    Student testStudent12(nextFreeId, "Klaus", "SP G1");
-
-
-    testStudents.push_back(testStudent01);
-    testStudents.push_back(testStudent02);
-    testStudents.push_back(testStudent03);
-    testStudents.push_back(testStudent04);
-    testStudents.push_back(testStudent05);
-    testStudents.push_back(testStudent06);
-    testStudents.push_back(testStudent07);
-    testStudents.push_back(testStudent08);
-    testStudents.push_back(testStudent09);
-    testStudents.push_back(testStudent10);
-    testStudents.push_back(testStudent11);
-
-    return testStudents;
-}
-
 vector<string> FileLoader::getSubjects(const vector<Student>& students) {
     vector<string> subjects;
 
@@ -90,4 +58,3 @@ vector<string> FileLoader::getSubjects(const vector<Student>& students) {
 
     return subjects;
 }
-

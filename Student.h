@@ -4,6 +4,7 @@
 
 #ifndef STUDENT_H
 #define STUDENT_H
+
 #include <cstdint>
 #include <string>
 
@@ -27,7 +28,5 @@ private:
     bool isOnToilet;
     bool isQueued;
 };
-
-
 
 #endif //STUDENT_H

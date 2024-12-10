@@ -15,10 +15,7 @@ class FileLoader {
 public:
     FileLoader();
     [[nodiscard]] static vector<Student> loadFile(const string& path);
-    [[nodiscard]] static vector<Student> loadExample();
     [[nodiscard]] static vector<string> getSubjects(const vector<Student>& students);
 };
-
-
 
 #endif //FILELOADER_H
