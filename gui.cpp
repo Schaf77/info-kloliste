@@ -79,7 +79,7 @@ textFieldQueue(this),
 
     // set label size and limits
     labelLastOutput.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
-    labelLastOutput.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
+    labelLastOutput.setMaximumSize(1000, TEXT_FIELD_HEIGHT_MAX);
     labelLastOutput.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Create top layout for input fields and buttons
@@ -101,7 +101,7 @@ textFieldQueue(this),
     mainLayout->addLayout(inputLayout);
     mainLayout->addLayout(buttonLayout);
 
-    createSubjectLabels(); // sets up subjectLayout
+    createSubjectLabels(); // sets up subjectLabelLayout
     mainLayout->addLayout(subjectLayout);
 
     // Connect signals
@@ -113,30 +113,50 @@ textFieldQueue(this),
 
 
 void gui::createSubjectLabels() {
-    subjectLayout = new QHBoxLayout;
+    // create the layout for the 2 layouts containing the students and the subjects names
+    subjectLayout = new QVBoxLayout;
 
+    // create the layout for the subjects labels and students
+    subjectLabelLayout = new QHBoxLayout;
+    subjectStudentLayout = new QHBoxLayout;
+
+    // import subjects from file
     subjectsImport = getSubjects();
 
+    // convert subject strings to QStrings and store them in a QVector<QString>
     QVector<QString> subjects;
     for (const string& subject : subjectsImport) {
         subjects.push_back(QString::fromStdString(subject));
     }
 
+    // create a Label for each subject and student
     for (const QString& subject : subjects) {
-        auto *label = new QLabel(subject);
-        label->setAlignment(Qt::AlignCenter);
-        QPalette palette = label->palette();
+        // create label for subject
+        auto *subjectLabel = new QLabel(subject);
+        subjectLabel->setAlignment(Qt::AlignCenter);
+        QPalette palette = subjectLabel->palette();
 
         palette.setColor(QPalette::Window, Qt::green);
 
-        label->setPalette(palette);
-        label->setAutoFillBackground(true);
-        label->setStyleSheet("QLabel { font-size: 20px; color: black; }");
-        label->setMinimumSize(100, 50);
-        label->setMaximumSize(200, 90);
-        subjectLayout->addWidget(label);
-        subjectLabels[subject] = label;
+        subjectLabel->setPalette(palette);
+        subjectLabel->setAutoFillBackground(true);
+        subjectLabel->setStyleSheet("QLabel { font-size: 20px; color: black; }");
+        subjectLabel->setMinimumSize(100, 50);
+        subjectLabel->setMaximumSize(200, 90);
+        subjectLabelLayout->addWidget(subjectLabel);
+        subjectLabels[subject] = subjectLabel;
+
+        // create label for student
+        QString student = getStudentOnToilet(subject.toStdString());
+        auto *studentLabel = new QLabel(student);
+        studentLabel->setAlignment(Qt::AlignCenter);
+        subjectStudentLayout->addWidget(studentLabel);
+
+        subjectStudentLabels[subject] = studentLabel;
+
     }
+    subjectLayout->addLayout(subjectLabelLayout);
+    subjectLayout->addLayout(subjectStudentLayout);
 }
 
 void gui::updateSubjectLabels() {
@@ -152,6 +172,11 @@ void gui::updateSubjectLabels() {
 
             // redraw label
             label->update();
+
+            // remove student from label
+            QLabel * studentLabel = subjectStudentLabels[QString::fromStdString(subject)];
+            studentLabel->setText("");
+            studentLabel->update();
         } else {
             // get subject label
             QLabel* label = subjectLabels[QString::fromStdString(subject)];
@@ -163,6 +188,12 @@ void gui::updateSubjectLabels() {
 
             // redraw label
             label->update();
+
+            // get new student on toilet
+            QString newStudent = getStudentOnToilet(subject);
+            QLabel * studentLabel = subjectStudentLabels[QString::fromStdString(subject)];
+            studentLabel->setText(newStudent);
+            studentLabel->update();
         }
     }
 }
@@ -201,5 +232,6 @@ void gui::updateLastOutputLabel(const QString& text) {
 
 gui::~gui() {
     delete ui;
-    delete subjectLayout;
+    delete subjectLabelLayout;
+    delete subjectStudentLayout;
 }

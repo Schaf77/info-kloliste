@@ -155,9 +155,9 @@ uint16_t getStudentId(const string& name) {
     }
 }
 
-// QString jsonToString(const json& jsonObj) {
-//     return QString::fromStdString(jsonObj.dump());
-// }
+QString jsonToString(const json& jsonObj) {
+    return QString::fromStdString(jsonObj.dump());
+}
 
 // converts a json student status into a vector<QString> student status
 vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
@@ -181,6 +181,16 @@ vector<QString> jsonSubjectStatusToString(const nlohmann::json &jsonObj) {
 
     return subjectStatus;
 }
+
+QString getStudentOnToilet(const string &subject) {
+    Student* studentOnToilet = toiletList.getStudentOnToilet(subject);
+    if (studentOnToilet == nullptr) {
+        //windowsWarnDialogue(L"No student on that toilet");
+        return "";
+    }
+    return QString::fromStdString(studentOnToilet->getName());
+}
+
 
 // creates a Windows error message
 void windowsWarnDialogue(const wstring& errorMessage) {

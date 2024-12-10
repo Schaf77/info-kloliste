@@ -51,6 +51,15 @@ uint16_t ToiletList::getIdFromStudent(const string& name) {
     throw std::invalid_argument("Student not found");
 }
 
+Student* ToiletList::getStudentOnToilet(const string& subject) {
+    for (Student &student : this->students) {
+        if (student.getToiletState() && student.getSubject() == subject) {
+            return &student;
+        }
+    }
+    return nullptr;
+}
+
 
 json ToiletList::getStudentStatus(const uint16_t& id) const {
     try {

@@ -30,6 +30,7 @@ public:
     void updateStudentToiletStatus(uint16_t id, bool isOnToilet);
     void updateStudentQueueStatus(uint16_t id, bool isQueued);
     [[nodiscard]] uint16_t getIdFromStudent(const string& name);
+    Student* getStudentOnToilet(const string& subject);
 private:
     map<string, queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
     vector<Student> students;

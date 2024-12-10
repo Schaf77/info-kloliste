@@ -28,8 +28,9 @@ private:
     QPushButton buttonQueue, buttonReturn, buttonSubjectStatus, buttonStudentStatus;
     QLineEdit textFieldQueue, textFieldReturn, textFieldSubjectStatus, textFieldStudentStatus;
     QLabel labelLastOutput;
-    QHBoxLayout *subjectLayout;
-    QMap<QString, QLabel*> subjectLabels;
+    QHBoxLayout *subjectLabelLayout, *subjectStudentLayout;
+    QVBoxLayout *subjectLayout;
+    QMap<QString, QLabel*> subjectLabels, subjectStudentLabels;
     void createSubjectLabels();
     void updateSubjectLabels();
     std::vector<std::string> subjectsImport;

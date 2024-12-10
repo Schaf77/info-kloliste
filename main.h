@@ -20,5 +20,6 @@ vector<QString> jsonStudentStatusToString(const nlohmann::json& jsonObj);
 vector<QString> jsonSubjectStatusToString(const nlohmann::json& jsonObj);
 vector<string> getSubjects();
 bool getSubjectAvailability(const string& subject);
+QString getStudentOnToilet(const string& subject);
 
 #endif //MAIN_H
