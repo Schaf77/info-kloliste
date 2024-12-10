@@ -22,8 +22,10 @@ int main(int argc, char *argv[]) {
     vector<Student> students;
 
     if (argc < 2) {
-        qDebug() << "No file path provided. Using default .\\kloliste.csv";
-        students = FileLoader::loadFile("kloliste.csv");
+        qDebug() << "No file path provided. Please enter the path to your file:";
+        string path;
+        cin >> path;
+        students = FileLoader::loadFile(path);
     } else {
         students = FileLoader::loadFile(argv[1]);
     }
