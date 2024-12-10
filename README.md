@@ -19,3 +19,4 @@
 3. If you request status information, it will be shown above the text boxes
 4. The color of the subject labels indicate the availability of the toilet in that subject
    1. Red -> unavailable, Green -> available
+5. The name below the subject label indicates the student, that is in that toilet
