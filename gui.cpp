@@ -122,7 +122,7 @@ void gui::createSubjectLabels() {
         subjects.push_back(QString::fromStdString(subject));
     }
 
-    for (QString subject : subjects) {
+    for (const QString& subject : subjects) {
         auto *label = new QLabel(subject);
         label->setAlignment(Qt::AlignCenter);
         QPalette palette = label->palette();

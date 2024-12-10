@@ -99,6 +99,8 @@ void terminalInterface(ToiletList toiletList, const vector<string>& subjects) {
 
 
 // functions for gui
+
+// If the subjects toilet is available, the students gets directly sent to the toilet. Otherwise, the student gets added to the subjects queue
 void queueStudent(const uint16_t& id) {
     try {
         toiletList.queueStudent(id);
@@ -108,6 +110,7 @@ void queueStudent(const uint16_t& id) {
     }
 }
 
+// returns a student from the toilet and sends the next one from the queue, if a next student from the queue exists
 void returnStudent(const uint16_t& id) {
     try {
         toiletList.returnStudent(id);
@@ -117,6 +120,7 @@ void returnStudent(const uint16_t& id) {
     }
 }
 
+// returns the status of a subject in a single string
 QString subjectStatus(const std::string& subject) {
     try {
         // return jsonToString(toiletList.getToiletStatus(subject));
@@ -128,6 +132,7 @@ QString subjectStatus(const std::string& subject) {
     }
 }
 
+// returns the status of a student in a single string
 QString studentStatus(const uint16_t& student) {
     try {
         // return jsonToString(toiletList.getStudentStatus(student));
@@ -139,7 +144,8 @@ QString studentStatus(const uint16_t& student) {
     }
 }
 
-uint16_t getStudentId(const std::string& name) {
+// returns the ID of the given student
+uint16_t getStudentId(const string& name) {
     try {
         return toiletList.getIdFromStudent(name);
     } catch (const invalid_argument& e) {
@@ -153,6 +159,7 @@ uint16_t getStudentId(const std::string& name) {
 //     return QString::fromStdString(jsonObj.dump());
 // }
 
+// converts a json student status into a vector<QString> student status
 vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
     // convert json to vector
     vector<QString> studentStatus;
@@ -164,6 +171,7 @@ vector<QString> jsonStudentStatusToString(const nlohmann::json &jsonObj) {
     return studentStatus;
 }
 
+// converts a json subject status into a vector<QString> subject status
 vector<QString> jsonSubjectStatusToString(const nlohmann::json &jsonObj) {
     // convert json to vector
     vector<QString> subjectStatus;
@@ -174,6 +182,7 @@ vector<QString> jsonSubjectStatusToString(const nlohmann::json &jsonObj) {
     return subjectStatus;
 }
 
+// creates a Windows error message
 void windowsWarnDialogue(const wstring& errorMessage) {
     MessageBox(
         nullptr,
