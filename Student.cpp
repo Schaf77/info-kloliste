@@ -4,10 +4,10 @@
 
 #include "Student.h"
 
-Student::Student(uint16_t *pNextFreeId, const string &name, const string &subject) {
+Student::Student(uint16_t& pNextFreeId, const string& name, const string& subject) {
     // assign next available id and increment the nextFreeId variable
-    this->id = *(pNextFreeId);
-    (*pNextFreeId)++;
+    this->id = pNextFreeId;
+    pNextFreeId++;
 
     // set toilet status
     this->isOnToilet = false;
@@ -22,11 +22,11 @@ uint16_t Student::getId() const {
     return this->id;
 }
 
-string Student::getSubject() {
+const string& Student::getSubject() {
     return this->subject;
 }
 
-string Student::getName() {
+const string& Student::getName() {
     return this->name;
 }
 bool Student::getToiletState() const {

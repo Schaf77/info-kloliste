@@ -12,10 +12,10 @@ using namespace std;
 
 class Student {
 public:
-    Student(uint16_t *pNextFreeId, const string &name, const string &subject);
+    Student(uint16_t& pNextFreeId, const string& name, const string& subject);
     [[nodiscard]] uint16_t getId() const;
-    [[nodiscard]] string getName();
-    [[nodiscard]] string getSubject();
+    [[nodiscard]] const string& getName();
+    [[nodiscard]] const string& getSubject();
     [[nodiscard]] bool getToiletState() const;
     [[nodiscard]] bool getQueuedState() const;
     void setToiletState(bool state);

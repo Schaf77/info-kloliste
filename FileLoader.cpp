@@ -28,7 +28,7 @@ vector<Student> FileLoader::loadFile(const string& path) {
     if (!file.is_open()) throw runtime_error("Could not open file");
 
     // read every line from file
-    while (std::getline(file, line)) {
+    while (getline(file, line)) {
         // Ignore first Line ("Kurs,Name")
         if (line == "Kurs,Name") continue;
 
@@ -36,7 +36,7 @@ vector<Student> FileLoader::loadFile(const string& path) {
         stringstream ss(line);
         if (getline(ss, subject, ',') && getline(ss, name)) {
             // Save the student in the students vector
-            Student student(&nextFreeId, name, subject);
+            Student student(nextFreeId, name, subject);
             students.push_back(student);
         } else {
             cerr << "Error parsing line: " << line << endl;
@@ -49,18 +49,18 @@ vector<Student> FileLoader::loadFile(const string& path) {
 vector<Student> FileLoader::loadExample() {
     uint16_t nextFreeId = 0;
     vector<Student> testStudents;
-    Student testStudent01(&nextFreeId, "John", "MA L1");
-    Student testStudent02(&nextFreeId, "Jane", "GE G1");
-    Student testStudent03(&nextFreeId, "Peter", "SP G1");
-    Student testStudent04(&nextFreeId, "Jens", "MA L1");
-    Student testStudent05(&nextFreeId, "Klaus", "GE G1");
-    Student testStudent06(&nextFreeId, "Klaus", "SP G1");
-    Student testStudent07(&nextFreeId, "John", "MA L1");
-    Student testStudent08(&nextFreeId, "Jane", "GE G1");
-    Student testStudent09(&nextFreeId, "Peter", "SP G1");
-    Student testStudent10(&nextFreeId, "Jens", "MA L1");
-    Student testStudent11(&nextFreeId, "Klaus", "GE G1");
-    Student testStudent12(&nextFreeId, "Klaus", "SP G1");
+    Student testStudent01(nextFreeId, "John", "MA L1");
+    Student testStudent02(nextFreeId, "Jane", "GE G1");
+    Student testStudent03(nextFreeId, "Peter", "SP G1");
+    Student testStudent04(nextFreeId, "Jens", "MA L1");
+    Student testStudent05(nextFreeId, "Klaus", "GE G1");
+    Student testStudent06(nextFreeId, "Klaus", "SP G1");
+    Student testStudent07(nextFreeId, "John", "MA L1");
+    Student testStudent08(nextFreeId, "Jane", "GE G1");
+    Student testStudent09(nextFreeId, "Peter", "SP G1");
+    Student testStudent10(nextFreeId, "Jens", "MA L1");
+    Student testStudent11(nextFreeId, "Klaus", "GE G1");
+    Student testStudent12(nextFreeId, "Klaus", "SP G1");
 
 
     testStudents.push_back(testStudent01);
