@@ -144,21 +144,24 @@ void ToiletList::queueStudent(const uint16_t id) {
 
 void ToiletList::returnStudent(const uint16_t id) {
     try {
-        // set variable for increased readability
-        const string subject = students.at(id).getSubject();
+        // set variables for increased readability
+        Student* student = &students.at(id);
+        const string subject = student->getSubject();
+
+        // only proceed if student is on the toilet
+        if (student->getToiletState() == false) return;
 
         // remove returned student from the toilet
         updateStudentToiletStatus(id, false);
 
         // only send the next student from the queue if the queue isn't empty
         if (!toiletQueueMap[subject].empty()) {
-
             // get the next student in line
-            Student *pNextStudent = &toiletQueueMap[subject].front();
+            Student& pNextStudent = toiletQueueMap[subject].front();
             // send the student to the toilet
-            updateStudentToiletStatus(pNextStudent->getId(), true);
+            updateStudentToiletStatus(pNextStudent.getId(), true);
             // remove the student from the queue
-            updateStudentQueueStatus(pNextStudent->getId(), false);
+            updateStudentQueueStatus(pNextStudent.getId(), false);
             toiletQueueMap[subject].pop();
         }
     } catch (const out_of_range& e) {
