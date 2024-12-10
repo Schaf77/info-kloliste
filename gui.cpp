@@ -77,6 +77,11 @@ textFieldQueue(this),
     textFieldStudentStatus.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
     textFieldStudentStatus.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
+    // set label size and limits
+    labelLastOutput.setMinimumSize(TEXT_FIELD_WIDTH_MIN, TEXT_FIELD_HEIGHT_MIN);
+    labelLastOutput.setMaximumSize(TEXT_FIELD_WIDTH_MAX, TEXT_FIELD_HEIGHT_MAX);
+    labelLastOutput.setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
     // Create top layout for input fields and buttons
     auto *inputLayout = new QHBoxLayout;
     inputLayout->addWidget(&textFieldQueue);
