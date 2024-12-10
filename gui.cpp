@@ -11,8 +11,6 @@
 #include <QLineEdit>
 #include <QPalette>
 
-using namespace std;
-
 gui::gui(QWidget *parent)
     : QWidget(parent),
     buttonQueue("Queue", this),
@@ -107,7 +105,7 @@ void gui::createSubjectLabels() {
 
     // convert subject strings to QStrings and store them in a QVector<QString>
     QVector<QString> subjects;
-    for (const string& subject : subjectsImport) {
+    for (const std::string& subject : subjectsImport) {
         subjects.push_back(QString::fromStdString(subject));
     }
 
@@ -142,7 +140,7 @@ void gui::createSubjectLabels() {
 }
 
 void gui::updateSubjectLabels() {
-    for (const string& subject : subjectsImport) {
+    for (const std::string& subject : subjectsImport) {
         if (getSubjectAvailability(subject)) {
             // get subject label
             QLabel* label = subjectLabels[QString::fromStdString(subject)];
@@ -183,7 +181,7 @@ void gui::updateSubjectLabels() {
 
 void gui::handleQueueButton() {
     // Convert the result of toInt() to uint16_t
-    const string name = textFieldQueue.text().toStdString();
+    const std::string name = textFieldQueue.text().toStdString();
     const uint16_t id = getStudentId(name);
     queueStudent(id);
     updateSubjectLabels();
@@ -191,19 +189,19 @@ void gui::handleQueueButton() {
 
 void gui::handleReturnButton() {
     // Convert the result of toInt() to uint16_t
-    const string name = textFieldReturn.text().toStdString();
+    const std::string name = textFieldReturn.text().toStdString();
     const uint16_t id = getStudentId(name);
     returnStudent(id);
     updateSubjectLabels();
 }
 
 void gui::handleSubjectStatusButton() {
-    const string subject = textFieldSubjectStatus.text().toStdString();
+    const std::string subject = textFieldSubjectStatus.text().toStdString();
     updateLastOutputLabel(subjectStatus(subject));
 }
 
 void gui::handleStudentStatusButton() {
-    const string name = textFieldStudentStatus.text().toStdString();
+    const std::string name = textFieldStudentStatus.text().toStdString();
     const uint16_t id = getStudentId(name);
     updateLastOutputLabel(studentStatus(id));
 }

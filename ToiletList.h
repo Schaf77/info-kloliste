@@ -9,33 +9,31 @@
 #include <vector>
 #include <string>
 #include <map>
+#include <qtypes.h>
 
 #include "Student.h"
 #include "json.hpp"
-
-using json = nlohmann::json;
-using namespace std;
 
 
 class ToiletList {
 public:
     ToiletList();
-    void init(const vector<Student>& students, const vector<string>& subjects);
-    bool checkToiletAvailability(const string& subject);
-    [[nodiscard]] json getStudentStatus(const uint16_t &id);
-    [[nodiscard]] json getToiletStatus(const string& subject);
-    [[nodiscard]] string getStudentStatusString(const uint16_t& id);
-    [[nodiscard]] string getSubjectStatusString(const string& subject);
+    void init(const std::vector<Student>& students, const std::vector<std::string>& subjects);
+    bool checkToiletAvailability(const std::string& subject);
+    [[nodiscard]] nlohmann::json getStudentStatus(const uint16_t &id);
+    [[nodiscard]] nlohmann::json getToiletStatus(const std::string& subject);
+    [[nodiscard]] std::string getStudentStatusString(const uint16_t& id);
+    [[nodiscard]] std::string getSubjectStatusString(const std::string& subject);
     void queueStudent(const uint16_t& id);
     void returnStudent(const uint16_t& id);
     void updateStudentToiletStatus(const uint16_t& id, const bool& isOnToilet);
     void updateStudentQueueStatus(const uint16_t& id, const bool& isQueued);
-    [[nodiscard]] uint16_t getIdFromStudent(const string& name);
-    Student* getStudentOnToilet(const string& subject);
+    [[nodiscard]] uint16_t getIdFromStudent(const std::string& name);
+    Student* getStudentOnToilet(const std::string& subject);
 private:
-    map<string, queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
-    vector<Student> students;
-    vector<string> subjects;
+    std::map<std::string, std::queue<Student> > toiletQueueMap;   // students waiting to go on the toilet
+    std::vector<Student> students;
+    std::vector<std::string> subjects;
 };
 
 #endif //TOILETLIST_H

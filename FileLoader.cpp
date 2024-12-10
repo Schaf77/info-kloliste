@@ -13,19 +13,17 @@
 #include "FileLoader.h"
 
 
-using namespace std;
-
 FileLoader::FileLoader() = default;
 
-vector<Student> FileLoader::loadFile(const string& path) {
+std::vector<Student> FileLoader::loadFile(const std::string& path) {
     // result map, where the key is the subject  and the element is a vector with all the students
-    vector<Student> students;
-    string line, subject, name;
+    std::vector<Student> students;
+    std::string line, subject, name;
     uint16_t nextFreeId = 0;
 
     // attempt to open file, throw exception when failed
-    ifstream file(path);
-    if (!file.is_open()) throw runtime_error("Could not open file");
+    std::ifstream file(path);
+    if (!file.is_open()) throw std::runtime_error("Could not open file");
 
     // read every line from file
     while (getline(file, line)) {
@@ -33,25 +31,25 @@ vector<Student> FileLoader::loadFile(const string& path) {
         if (line == "Kurs,Name") continue;
 
         // Split the line using stringstream and store the student
-        stringstream ss(line);
+        std::stringstream ss(line);
         if (getline(ss, subject, ',') && getline(ss, name)) {
             // Save the student in the students vector
             Student student(nextFreeId, name, subject);
             students.push_back(student);
         } else {
-            cerr << "Error parsing line: " << line << endl;
+            std::cerr << "Error parsing line: " << line << std::endl;
         }
     }
 
     return students;
 }
 
-vector<string> FileLoader::getSubjects(const vector<Student>& students) {
-    vector<string> subjects;
+std::vector<std::string> FileLoader::getSubjects(const std::vector<Student>& students) {
+    std::vector<std::string> subjects;
 
     for (Student student : students) {
-        const string subject = student.getSubject();
-        if (ranges::find(subjects, subject) == subjects.end()) {
+        const std::string subject = student.getSubject();
+        if (std::ranges::find(subjects, subject) == subjects.end()) {
             subjects.push_back(subject);
         }
     }

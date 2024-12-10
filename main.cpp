@@ -10,22 +10,20 @@
 #include "main.h"
 #include "json.hpp"
 
-using namespace std;
-
-void terminalInterface(ToiletList toiletList, const vector<string>& subjects);
-void windowsWarnDialogue(const wstring& errorMessage);
-vector<string> subjects;
+void terminalInterface(ToiletList toiletList, const std::vector<std::string>& subjects);
+void windowsWarnDialogue(const std::wstring& errorMessage);
+std::vector<std::string> subjects;
 
 ToiletList toiletList{};
 
 int main(int argc, char *argv[]) {
     qDebug() << "Main started";
-    vector<Student> students;
+    std::vector<Student> students;
 
     if (argc < 2) {
         qDebug() << "No file path provided. Please enter the path to your file:";
-        string path;
-        cin >> path;
+        std::string path;
+        std::cin >> path;
         students = FileLoader::loadFile(path);
     } else {
         students = FileLoader::loadFile(argv[1]);
@@ -47,55 +45,55 @@ int main(int argc, char *argv[]) {
     return QApplication::exec();
 }
 
-void terminalInterface(ToiletList& toiletList, const vector<string>& subjects) {
-    cout << "Welcome!" << endl;
+void terminalInterface(ToiletList& toiletList, const std::vector<std::string>& subjects) {
+    std::cout << "Welcome!" << std::endl;
     while (true) {
         // welcome text
-        cout << "Available commands:\nstatus, studentStatus, queue, return, stop" << endl;
+        std::cout << "Available commands:\nstatus, studentStatus, queue, return, stop" << std::endl;
 
         // get user input
-        string input;
-        cin >> input;
+        std::string input;
+        std::cin >> input;
 
         // analyse input
         if (input == "status") {
             // output status of toilet for each subject
-            for (const string& subject : subjects) {
-                cout << toiletList.getToiletStatus(subject) << endl;
+            for (const std::string& subject : subjects) {
+                std::cout << toiletList.getToiletStatus(subject) << std::endl;
             }
         }
         else if (input == "studentStatus") {
             // get student id from user
-            cout << "Enter student id: " << endl;
+            std::cout << "Enter student id: " << std::endl;
             int id;
-            cin >> id;
+            std::cin >> id;
 
             // output student status
-            cout << toiletList.getStudentStatus(id) << endl;
+            std::cout << toiletList.getStudentStatus(id) << std::endl;
         }
         else if (input == "queue") {
             // get student id from user
-            cout << "Enter student id: " << endl;
+            std::cout << "Enter student id: " << std::endl;
             int id;
-            cin >> id;
+            std::cin >> id;
 
             // queue student
             toiletList.queueStudent(id);
-            cout << "student " << id << " queued" << endl;
+            std::cout << "student " << id << " queued" << std::endl;
         }
         else if (input == "return") {
             // get student id from user
-            cout << "Enter student id: " << endl;
+            std::cout << "Enter student id: " << std::endl;
             int id;
-            cin >> id;
+            std::cin >> id;
 
             // return student
             toiletList.returnStudent(id);
-            cout << "student " << id << " returned" << endl;
+            std::cout << "student " << id << " returned" << std::endl;
         }
         else if (input == "stop") return;
         else {
-            cout << "Invalid input." << endl;
+            std::cout << "Invalid input." << std::endl;
         }
     }
 }
@@ -104,7 +102,7 @@ void terminalInterface(ToiletList& toiletList, const vector<string>& subjects) {
 void queueStudent(const uint16_t& id) {
     try {
         toiletList.queueStudent(id);
-    } catch (const invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid Student name");
     }
@@ -114,18 +112,18 @@ void queueStudent(const uint16_t& id) {
 void returnStudent(const uint16_t& id) {
     try {
         toiletList.returnStudent(id);
-    } catch (const invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid Student name");
     }
 }
 
 // returns the status of a subject in a single string
-QString subjectStatus(const string& subject) {
+QString subjectStatus(const std::string& subject) {
     try {
         // return jsonToString(toiletList.getToiletStatus(subject));
         return QString::fromStdString(toiletList.getSubjectStatusString(subject));
-    } catch (const invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid  Subject");
         return "";
@@ -137,7 +135,7 @@ QString studentStatus(const uint16_t& student) {
     try {
         // return jsonToString(toiletList.getStudentStatus(student));
         return QString::fromStdString(toiletList.getStudentStatusString(student));
-    } catch (const invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         qDebug() << e.what();
         windowsWarnDialogue(L"Invalid Student name");
         return "";
@@ -145,16 +143,16 @@ QString studentStatus(const uint16_t& student) {
 }
 
 // returns the ID of the given student
-uint16_t getStudentId(const string& name) {
+uint16_t getStudentId(const std::string& name) {
     try {
         return toiletList.getIdFromStudent(name);
-    } catch (const invalid_argument& e) {
+    } catch (const std::invalid_argument& e) {
         qDebug() << e.what();
         return 65535;
     }
 }
 
-QString getStudentOnToilet(const string& subject) {
+QString getStudentOnToilet(const std::string& subject) {
     Student* studentOnToilet = toiletList.getStudentOnToilet(subject);
     if (studentOnToilet == nullptr) {
         return "";
@@ -163,7 +161,7 @@ QString getStudentOnToilet(const string& subject) {
 }
 
 // creates a Windows error message
-void windowsWarnDialogue(const wstring& errorMessage) {
+void windowsWarnDialogue(const std::wstring& errorMessage) {
     MessageBox(
         nullptr,
         errorMessage.c_str(),
@@ -172,10 +170,10 @@ void windowsWarnDialogue(const wstring& errorMessage) {
     );
 }
 
-vector<string> getSubjects() {
+std::vector<std::string> getSubjects() {
     return subjects;
 }
 
-bool getSubjectAvailability(const string& subject) {
+bool getSubjectAvailability(const std::string& subject) {
     return toiletList.checkToiletAvailability(subject);
 }

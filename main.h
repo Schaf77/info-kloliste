@@ -7,15 +7,13 @@
 
 #include <string>
 
-using namespace std;
-
 void queueStudent(const uint16_t& id);
 void returnStudent(const uint16_t& id);
-QString subjectStatus(const string& subject);
+QString subjectStatus(const std::string& subject);
 QString studentStatus(const uint16_t& student);
-uint16_t getStudentId(const string& name);
-vector<string> getSubjects();
-bool getSubjectAvailability(const string& subject);
-QString getStudentOnToilet(const string& subject);
+uint16_t getStudentId(const std::string& name);
+std::vector<std::string> getSubjects();
+bool getSubjectAvailability(const std::string& subject);
+QString getStudentOnToilet(const std::string& subject);
 
 #endif //MAIN_H

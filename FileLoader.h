@@ -9,13 +9,11 @@
 
 #include "Student.h"
 
-using namespace std;
-
 class FileLoader {
 public:
     FileLoader();
-    [[nodiscard]] static vector<Student> loadFile(const string& path);
-    [[nodiscard]] static vector<string> getSubjects(const vector<Student>& students);
+    [[nodiscard]] static std::vector<Student> loadFile(const std::string& path);
+    [[nodiscard]] static std::vector<std::string> getSubjects(const std::vector<Student>& students);
 };
 
 #endif //FILELOADER_H
